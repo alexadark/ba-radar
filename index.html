@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -159,6 +159,11 @@ code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px s
 .toast.show{opacity:1}
 .update{display:none;margin-bottom:16px;border:1px solid var(--violet);background:color-mix(in srgb,var(--violet) 12%,var(--surface));border-radius:10px;padding:10px 14px;align-items:center;justify-content:space-between;gap:12px}
 .update.show{display:flex}
+.progress{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13.5px}
+.progress .bar{height:4px;background:var(--line);border-radius:999px;margin-top:10px;overflow:hidden}
+.progress .bar i{display:block;height:100%;background:var(--grad);border-radius:999px;transition:width .4s}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:8px;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 </style>
 </head>
 <body>
@@ -166,44 +171,44 @@ code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px s
   <aside class="side">
     <div class="brand"><span class="logo"></span>BA Radar</div>
     <nav>
-      <button data-tab="week" class="on">Semaine <span class="count" data-count="week"></span></button>
-      <button data-tab="accounts">Comptes <span class="count" data-count="accounts"></span></button>
-      <button data-tab="settings">Réglages</button>
+      <button data-tab="week" class="on">This week <span class="count" data-count="week"></span></button>
+      <button data-tab="accounts">Accounts <span class="count" data-count="accounts"></span></button>
+      <button data-tab="settings">Settings</button>
     </nav>
     <div class="foot">
-      <span class="caps">Dernier scan</span>
+      <span class="caps">Last scan</span>
       <span id="status2">…</span>
-      <button class="btn" id="reload2">Actualiser</button>
+      <button class="btn" id="reload2">Refresh</button>
     </div>
   </aside>
   <main>
-    <div class="update" id="update"><span>Nouvelle version disponible</span><button class="btn primary" id="updateBtn">Mettre à jour</button></div>
+    <div class="update" id="update"><span>New version available</span><button class="btn primary" id="updateBtn">Update</button></div>
     <div class="pagehead">
       <div>
         <div class="brand-m"><span class="logo"></span><span class="caps">BA Radar</span></div>
-        <h1 id="title">Cette semaine</h1>
-        <div id="status">Chargement…</div>
+        <h1 id="title">This week</h1>
+        <div id="status">Loading…</div>
       </div>
-      <button class="btn" id="reload">Actualiser</button>
+      <button class="btn" id="reload">Refresh</button>
     </div>
     <section id="view"></section>
   </main>
 </div>
 <nav class="bottom">
-  <button data-tab="week" class="on">Semaine</button>
-  <button data-tab="accounts">Comptes <span class="count" data-count="accounts"></span></button>
-  <button data-tab="settings">Réglages</button>
+  <button data-tab="week" class="on">Week</button>
+  <button data-tab="accounts">Accounts <span class="count" data-count="accounts"></span></button>
+  <button data-tab="settings">Settings</button>
 </nav>
 <div class="toast" id="toast"></div>
 
 <script>
 // Bump together with version.json on every release, so installed copies
-// see "Mettre à jour".
-const APP_VERSION = '2026.10.11-6';
+// see "Update".
+const APP_VERSION = '2026.10.11-7';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
-const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
-const TITLES = { week: 'Cette semaine', accounts: 'Comptes', settings: 'Réglages' };
+const CATS = { music: 'Music', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Other' };
+const TITLES = { week: 'This week', accounts: 'Accounts', settings: 'Settings' };
 const $ = id => document.getElementById(id);
 
 let tab = 'week';
@@ -255,8 +260,8 @@ async function updateFile(name, mutate, message) {
 }
 
 async function load() {
-  if (!token()) { setStatusText('Connecte ta clé GitHub dans Réglages.'); data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
-  setStatusText('Chargement…');
+  if (!token()) { setStatusText('Add your GitHub key in Settings.'); data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
+  setStatusText('Loading…');
   try {
     const [e, a, s, c] = await Promise.all(['events.json', 'accounts.json', 'state.json', 'config.json'].map(readFile));
     data = { events: e.json, accounts: a.json, state: s.json, config: c.json };
@@ -264,14 +269,17 @@ async function load() {
     setStatus();
   } catch (err) {
     data = loadPref('cache', data);
-    setStatusText(err.status === 401 || err.status === 404 ? 'Clé GitHub refusée. Vérifie-la dans Réglages.' : 'Hors ligne, dernières données affichées.');
+    setStatusText(err.status === 401 || err.status === 404 ? 'GitHub key rejected. Check it in Settings.' : 'Offline, showing the last data.');
   }
   render();
 }
+function scanning() { return data.events?.scan?.status === 'running'; }
 function setStatus() {
   const g = data.events?.generated_at;
-  if (data.events?.last_error) { setStatusText(`Problème au dernier scan : ${data.events.last_error}`); return; }
-  setStatusText(g ? new Date(g).toLocaleString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'Pas encore de scan.');
+  const sc = data.events?.scan;
+  if (scanning()) { setStatusText(`Scanning… ${sc.accounts_done || 0}/${sc.accounts_total || '?'} accounts`); return; }
+  if (data.events?.last_error) { setStatusText(`Last scan problem: ${data.events.last_error}`); return; }
+  setStatusText(g ? new Date(g).toLocaleString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'No scan yet.');
 }
 
 // ---------- views ----------
@@ -294,8 +302,8 @@ function render() {
   ({ week: renderWeek, accounts: renderAccounts, settings: renderSettings })[tab]();
   if (!token() && tab !== 'settings') {
     $('view').insertAdjacentHTML('afterbegin', `<div class="update show" style="border-color:var(--amber);background:color-mix(in srgb,var(--amber) 10%,var(--surface))">
-      <span>Pas de clé GitHub dans cette fenêtre : tes comptes et événements ne peuvent pas s'afficher. Chaque navigateur et chaque appli installée a besoin de la sienne.</span>
-      <button class="btn primary" id="goKey">Ajouter la clé</button></div>`);
+      <span>No GitHub key in this window, so your accounts and events can't load. Each browser and each installed app needs its own.</span>
+      <button class="btn primary" id="goKey">Add the key</button></div>`);
     $('goKey').onclick = () => setTab('settings');
   }
 }
@@ -315,31 +323,35 @@ function renderWeek() {
   evs.sort((a, b) => a.start.localeCompare(b.start) || (b.score || 0) - (a.score || 0));
 
   const shown = all.filter(e => evState(e.id) !== 'hidden');
-  const nearLabel = data.config?.home ? `Près de ${esc(data.config.home)}` : 'Près de chez moi';
+  const nearLabel = data.config?.home ? `Near ${esc(data.config.home)}` : 'Near home';
   const stat = (label, n, cls) => `<div class="stat ${cls}"><span class="caps">${label}</span><div class="n">${n}</div></div>`;
   let html = `<div class="stats">
-    ${stat('Événements', shown.length, 'g')}
+    ${stat('Events', shown.length, 'g')}
     ${stat('Top picks', shown.filter(e => (e.score || 0) >= 4).length, 'c-music')}
     ${stat(nearLabel, shown.filter(e => e.near).length, 'c-near')}
-    ${stat('Mes plans', all.filter(e => ['going', 'maybe'].includes(evState(e.id))).length, 'c-mine')}
+    ${stat('My plans', all.filter(e => ['going', 'maybe'].includes(evState(e.id))).length, 'c-mine')}
   </div>`;
 
   const chip = (val, label) => `<button class="chip c-${val === 'all' ? 'x' : val} ${filters.cat === val ? 'on' : ''}" data-f="cat" data-v="${val}">${val === 'all' ? '' : '<span class="dot"></span>'}${label}</button>`;
   const toggle = (key, label, cls) => `<button class="chip ${cls} ${filters[key] ? 'on' : ''}" data-t="${key}"><span class="dot"></span>${label}</button>`;
-  html += `<div class="filters">${chip('all', 'Tout')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip(k, v)).join('')}
-    <span class="sep"></span>${toggle('near', nearLabel, 'c-near')}${toggle('mine', 'Mes plans', 'c-mine')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Masqués (${hiddenCount})`, 'c-other') : ''}</div>`;
+  if (scanning()) {
+    const sc = data.events.scan, pct = sc.accounts_total ? Math.round(100 * (sc.accounts_done || 0) / sc.accounts_total) : 0;
+    html = `<div class="progress"><div class="row" style="justify-content:space-between"><span><span class="pulse"></span>Scan in progress, new events appear as each batch is done</span><span class="mono small">${sc.accounts_done || 0}/${sc.accounts_total || '?'}</span></div><div class="bar"><i style="width:${pct}%"></i></div></div>` + html;
+  }
+  html += `<div class="filters">${chip('all', 'All')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip(k, v)).join('')}
+    <span class="sep"></span>${toggle('near', nearLabel, 'c-near')}${toggle('mine', 'My plans', 'c-mine')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Hidden (${hiddenCount})`, 'c-other') : ''}</div>`;
 
-  if (!data.events) html += `<div class="empty">Aucune donnée pour l'instant.</div>`;
-  else if (!data.events.generated_at) html += `<div class="empty">Pas encore de scan. Lance-le depuis l'app Claude : Scheduled › BA Radar › Run now.</div>`;
-  else if (!evs.length) html += `<div class="empty">Rien qui corresponde à ces filtres.</div>`;
+  if (!data.events) html += `<div class="empty">No data yet.</div>`;
+  else if (!data.events.generated_at) html += `<div class="empty">No scan yet. Start one in the Claude app: Routines › BA Radar › Run now.</div>`;
+  else if (!evs.length) html += `<div class="empty">Nothing matches these filters.</div>`;
 
   const byDay = {};
   evs.forEach(e => (byDay[dayKey(e)] ||= []).push(e));
   for (const [d, list] of Object.entries(byDay)) {
     const date = new Date(d + 'T00:00');
     const diff = Math.round((date - today) / 864e5);
-    const rel = diff === 0 ? "aujourd'hui" : diff === 1 ? 'demain' : '';
-    html += `<div class="day"><div class="dayhead"><h2>${date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</h2>${rel ? `<span class="rel">${rel}</span>` : ''}<span class="caps">${list.length}</span></div>
+    const rel = diff === 0 ? 'today' : diff === 1 ? 'tomorrow' : '';
+    html += `<div class="day"><div class="dayhead"><h2>${date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</h2>${rel ? `<span class="rel">${rel}</span>` : ''}<span class="caps">${list.length}</span></div>
       <div class="grid">${list.map(evCard).join('')}</div></div>`;
   }
   $('view').innerHTML = html;
@@ -356,16 +368,16 @@ function evCard(e) {
   const btn = (mark, label) => `<button class="${st === mark ? 'on' : ''}" data-id="${esc(e.id)}" data-mark="${mark}">${label}</button>`;
   return `<article class="ev c-${cat} ${st === 'hidden' ? 'hidden-ev' : st}">
     <div class="top"><span class="time">${time || '—'}</span><span class="tag">${CATS[cat]}</span>${score >= 5 ? '<span class="top-pick">TOP</span>' : ''}
-      <span class="score" title="Intérêt ${score}/5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= score ? 'on' : ''}"></i>`).join('')}</span></div>
+      <span class="score" title="Interest ${score}/5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= score ? 'on' : ''}"></i>`).join('')}</span></div>
     <h3>${esc(e.title)}</h3>
-    <div class="where">${esc([e.venue, e.barrio].filter(Boolean).join(' · '))}${e.near ? ' · <span class="near">près</span>' : ''}</div>
+    <div class="where">${esc([e.venue, e.barrio].filter(Boolean).join(' · '))}${e.near ? ' · <span class="near">near</span>' : ''}</div>
     ${e.summary ? `<p class="sum">${esc(e.summary)}</p>` : ''}
     ${e.why ? `<p class="why">${esc(e.why)}</p>` : ''}
     <div class="foot">
       ${e.price ? `<span class="mono muted">${esc(e.price)}</span>` : ''}
       ${e.post_url ? `<a href="${esc(e.post_url)}" target="_blank" rel="noopener">@${esc(e.account || 'post')} ↗</a>` : ''}
-      ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Billets ↗</a>` : ''}
-      <span class="acts">${btn('going', "J'y vais")}${btn('maybe', 'Peut-être')}${btn('hidden', 'Masquer')}</span>
+      ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Tickets ↗</a>` : ''}
+      <span class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</span>
     </div>
   </article>`;
 }
@@ -376,7 +388,7 @@ async function markEvent(id, mark) {
   savePref('cache', data); render();
   try {
     await updateFile('state.json', s => { s.events ||= {}; if (next) s.events[id] = next; else delete s.events[id]; }, `Mark event ${id}: ${next || 'clear'}`);
-  } catch { toast("Pas enregistré, vérifie ta connexion."); }
+  } catch { toast("Not saved, check your connection."); }
 }
 
 function renderAccounts() {
@@ -390,16 +402,16 @@ function renderAccounts() {
       <div class="row"><span class="h">${igLink(a)}</span><span class="tag">${CATS[catOf(a)]}</span></div>
       <div class="small muted">${esc([a.name, a.barrio].filter(Boolean).join(' · '))}</div>
       ${a.why ? `<div class="small">${esc(a.why)}</div>` : ''}
-      <div class="acts"><button class="btn primary" data-acc="${esc(a.handle)}" data-s="approved">Suivre</button><button class="btn" data-acc="${esc(a.handle)}" data-s="ignored">Ignorer</button></div></div>`).join('')}</div>`
-    : `<div class="panel small muted">Pas de suggestion en attente. Le scan en propose de nouvelles chaque semaine.</div>`;
+      <div class="acts"><button class="btn primary" data-acc="${esc(a.handle)}" data-s="approved">Follow</button><button class="btn" data-acc="${esc(a.handle)}" data-s="ignored">Ignore</button></div></div>`).join('')}</div>`
+    : `<div class="panel small muted">No suggestions waiting. Each scan proposes new ones.</div>`;
   html += `</div>`;
 
-  html += `<div class="section narrow"><span class="caps">Ajouter un compte</span><div class="panel"><div class="row"><input type="text" id="newHandle" placeholder="@compte ou lien Instagram" autocapitalize="off" autocorrect="off"><button class="btn primary" id="addBtn">Ajouter</button></div></div></div>`;
+  html += `<div class="section narrow"><span class="caps">Add an account</span><div class="panel"><div class="row"><input type="text" id="newHandle" placeholder="@account or Instagram link" autocapitalize="off" autocorrect="off"><button class="btn primary" id="addBtn">Add</button></div></div></div>`;
 
-  html += `<div class="section"><span class="caps">Suivis · ${following.length}</span><div class="panel"><div class="list">${following.length ? following.map(a => `<div class="item c-${catOf(a)}"><span><span class="d"></span>${igLink(a)}${a.status === 'approved' ? '<span class="pill">en attente</span>' : ''}</span><button data-acc="${esc(a.handle)}" data-s="ignored">Retirer</button></div>`).join('') : '<span class="muted small">Aucun compte suivi.</span>'}</div></div>
-    <p class="small muted">« En attente » : le scan lit déjà ce compte et s'y abonne au fil des semaines, 10 par passage. « Retirer » arrête le scan ; l'abonnement Instagram reste en place.</p></div>`;
+  html += `<div class="section"><span class="caps">Followed · ${following.length}</span><div class="panel"><div class="list">${following.length ? following.map(a => `<div class="item c-${catOf(a)}"><span><span class="d"></span>${igLink(a)}${a.status === 'approved' ? '<span class="pill">pending</span>' : ''}</span><button data-acc="${esc(a.handle)}" data-s="ignored">Remove</button></div>`).join('') : '<span class="muted small">No followed accounts.</span>'}</div></div>
+    <p class="small muted">"Pending": the scan already reads this account and follows it over the coming weeks, 10 per scan. "Remove" stops scanning it; the Instagram follow stays.</p></div>`;
 
-  if (ignored.length) html += `<div class="section"><span class="caps">Ignorés · ${ignored.length}</span><div class="panel"><div class="list">${ignored.map(a => `<div class="item c-${catOf(a)}"><span><span class="d"></span>@${esc(a.handle)}</span><button data-acc="${esc(a.handle)}" data-s="suggested">Restaurer</button></div>`).join('')}</div></div></div>`;
+  if (ignored.length) html += `<div class="section"><span class="caps">Ignored · ${ignored.length}</span><div class="panel"><div class="list">${ignored.map(a => `<div class="item c-${catOf(a)}"><span><span class="d"></span>@${esc(a.handle)}</span><button data-acc="${esc(a.handle)}" data-s="suggested">Restore</button></div>`).join('')}</div></div></div>`;
   $('view').innerHTML = html;
 
   $('view').querySelectorAll('[data-acc]').forEach(b => b.onclick = () => setAccount(b.dataset.acc, b.dataset.s));
@@ -416,12 +428,12 @@ async function setAccount(handle, status) {
   const now = new Date().toISOString();
   const apply = j => { const a = (j.accounts || []).find(x => x.handle === handle); if (a) { a.status = status; a.updated = now; } };
   apply(data.accounts); savePref('cache', data); render();
-  try { await updateFile('accounts.json', apply, `@${handle}: ${status}`); toast(status === 'approved' ? 'Ajouté au scan' : 'Enregistré'); }
-  catch { toast("Pas enregistré, vérifie ta connexion."); }
+  try { await updateFile('accounts.json', apply, `@${handle}: ${status}`); toast(status === 'approved' ? 'Added to the scan' : 'Saved'); }
+  catch { toast("Not saved, check your connection."); }
 }
 async function addAccount() {
   const handle = cleanHandle($('newHandle').value);
-  if (!handle) { toast('Compte invalide'); return; }
+  if (!handle) { toast('Invalid account'); return; }
   const now = new Date().toISOString();
   const apply = j => {
     j.accounts ||= [];
@@ -430,37 +442,37 @@ async function addAccount() {
     else j.accounts.push({ handle, status: 'approved', source: 'added in app', added: now, updated: now });
   };
   apply(data.accounts); savePref('cache', data); render();
-  try { await updateFile('accounts.json', apply, `Add @${handle}`); toast(`@${handle} ajouté`); }
-  catch { toast("Pas enregistré, vérifie ta connexion."); }
+  try { await updateFile('accounts.json', apply, `Add @${handle}`); toast(`@${handle} added`); }
+  catch { toast("Not saved, check your connection."); }
 }
 
 function renderSettings() {
   const has = !!token();
   $('view').innerHTML = `<div class="narrow">
-    <div class="section"><span class="caps">Clé GitHub</span>
+    <div class="section"><span class="caps">GitHub key</span>
     <div class="panel">
-      <p class="small" style="margin-top:0">${has ? 'Une clé est enregistrée sur cet appareil.' : "L'appli lit tes données dans le repo privé <code>" + REPO + "</code>. Il lui faut une clé, une fois par appareil."}</p>
-      <div class="row"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Enregistrer</button></div>
-      ${has ? '<div class="row" style="margin-top:12px"><button class="btn grad" id="qrBtn">Transférer vers le téléphone</button><button class="btn" id="clearTok">Oublier la clé</button></div><div id="qr" style="display:none"></div>' : ''}
+      <p class="small" style="margin-top:0">${has ? 'A key is saved on this device.' : 'The app reads your data from the private repo <code>' + REPO + '</code>. It needs a key, once per device.'}</p>
+      <div class="row"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Save</button></div>
+      ${has ? '<div class="row" style="margin-top:12px"><button class="btn grad" id="qrBtn">Send to phone</button><button class="btn" id="clearTok">Forget the key</button></div><div id="qr" style="display:none"></div>' : ''}
     </div></div>
-    <div class="section"><span class="caps">Créer la clé</span>
+    <div class="section"><span class="caps">Create the key</span>
     <div class="panel small"><ol>
-      <li>Ouvre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--blue)">github.com › New fine-grained token</a>.</li>
-      <li>Nom : <code>BA Radar</code>. Expiration : la plus longue proposée.</li>
-      <li>Repository access : <b>Only select repositories</b> › <code>ba-radar-data</code>.</li>
-      <li>Permissions › Repository › <b>Contents : Read and write</b>.</li>
-      <li>Génère, copie, colle ici. La clé reste sur cet appareil seulement.</li>
+      <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--blue)">github.com › New fine-grained token</a>.</li>
+      <li>Name: <code>BA Radar</code>. Expiration: the longest offered.</li>
+      <li>Repository access: <b>Only select repositories</b> › <code>ba-radar-data</code>.</li>
+      <li>Permissions › Repository › <b>Contents: Read and write</b>.</li>
+      <li>Generate, copy, paste here. The key stays on this device only.</li>
     </ol></div></div>
-    <div class="section"><span class="caps">Lancer un scan</span>
-    <div class="panel small">Dans l'app Claude sur le Mac : barre latérale › Scheduled › « BA Radar : scan Instagram hebdo » › Run now. Chrome doit être ouvert avec l'extension Claude connectée.</div></div>
-    <div class="section"><span class="caps">Installer</span>
-    <div class="panel small">Mac : dans Chrome, menu ⋮ › « Caster, enregistrer et partager » › « Installer la page en tant qu'appli », ou dans Safari, Fichier › « Ajouter au Dock ». iPhone : Safari › Partager › « Sur l'écran d'accueil ».</div></div>
+    <div class="section"><span class="caps">Run a scan</span>
+    <div class="panel small">In the Claude app on the Mac: Code tab › Routines › "BA Radar : scan Instagram hebdo" › Run now. Chrome must be open with the Claude extension connected. Scans also run by themselves every Monday around 11am.</div></div>
+    <div class="section"><span class="caps">Install</span>
+    <div class="panel small">Mac: in Chrome, menu ⋮ › Cast, save and share › Install page as app, or in Safari, File › Add to Dock. iPhone: Safari › Share › Add to Home Screen.</div></div>
     <p class="caps">Version ${APP_VERSION}</p></div>`;
   $('saveTok').onclick = async () => {
     const v = $('tok').value.trim();
     if (!v) return;
     try { localStorage.setItem('gh_token', v); } catch {}
-    toast('Clé enregistrée'); await load(); if (data.events) setTab('week');
+    toast('Key saved'); await load(); if (data.events) setTab('week');
   };
   if (has) $('qrBtn').onclick = showQr;
   if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null, config: null }; render(); };
@@ -478,9 +490,9 @@ async function showQr() {
     if (!window.qrcode) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js');
     const qr = qrcode(0, 'M'); qr.addData(token()); qr.make();
     box.innerHTML = `<div style="background:#fff;padding:14px;border-radius:10px;width:fit-content;margin:14px auto 8px">${qr.createSvgTag({ cellSize: 5, margin: 0 })}</div>
-      <p class="small muted">Sur le téléphone : vise ce code avec l'appareil photo, touche le texte qui apparaît et copie-le, puis colle-le dans Réglages de l'appli installée. Referme ensuite ce code.</p>`;
+      <p class="small muted">On the phone: point the camera at this code, tap the text that appears and copy it, then paste it in Settings of the installed app. Close this code afterwards.</p>`;
     box.style.display = 'block';
-  } catch { toast('QR indisponible hors ligne'); }
+  } catch { toast('QR code unavailable offline'); }
 }
 
 // ---------- boot ----------
@@ -501,6 +513,13 @@ async function checkUpdate() {
   } catch {}
 }
 window.addEventListener('focus', checkUpdate);
+let lastLoad = 0;
+const _load = load;
+load = async () => { lastLoad = Date.now(); await _load(); };
+setInterval(() => {
+  if (document.hidden || !token()) return;
+  if (Date.now() - lastLoad >= (scanning() ? 60e3 : 600e3)) load();
+}, 15e3);
 setInterval(checkUpdate, 15 * 60 * 1000);
 load();
 checkUpdate();
