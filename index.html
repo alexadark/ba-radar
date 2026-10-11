@@ -199,7 +199,7 @@ code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px s
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Mettre à jour".
-const APP_VERSION = '2026.10.11-5';
+const APP_VERSION = '2026.10.11-6';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
@@ -292,6 +292,12 @@ function render() {
   document.querySelectorAll('[data-count=accounts]').forEach(el => { el.textContent = pending || ''; el.style.display = pending ? '' : 'none'; el.classList.toggle('hot', !!pending); });
   document.querySelectorAll('[data-count=week]').forEach(el => { el.textContent = visible || ''; el.style.display = visible ? '' : 'none'; });
   ({ week: renderWeek, accounts: renderAccounts, settings: renderSettings })[tab]();
+  if (!token() && tab !== 'settings') {
+    $('view').insertAdjacentHTML('afterbegin', `<div class="update show" style="border-color:var(--amber);background:color-mix(in srgb,var(--amber) 10%,var(--surface))">
+      <span>Pas de clé GitHub dans cette fenêtre : tes comptes et événements ne peuvent pas s'afficher. Chaque navigateur et chaque appli installée a besoin de la sienne.</span>
+      <button class="btn primary" id="goKey">Ajouter la clé</button></div>`);
+    $('goKey').onclick = () => setTab('settings');
+  }
 }
 
 function evState(id) { return data.state?.events?.[id] || ''; }
