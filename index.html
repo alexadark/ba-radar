@@ -101,7 +101,7 @@ code{background:var(--card2);padding:1px 5px;border-radius:6px;font-size:13px}
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Mettre à jour".
-const APP_VERSION = '2026.10.11-2';
+const APP_VERSION = '2026.10.11-3';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
@@ -309,7 +309,7 @@ function renderSettings() {
     <div class="card">
       <p class="small" style="margin-top:0">${has ? 'Une clé est enregistrée sur cet appareil.' : "L'appli lit tes données dans le repo privé <code>" + REPO + "</code>. Il lui faut une clé, une fois par appareil."}</p>
       <div class="row" style="flex-wrap:nowrap"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Enregistrer</button></div>
-      ${has ? '<p class="small"><button class="btn small" id="clearTok">Oublier la clé</button></p>' : ''}
+      ${has ? '<p class="small row"><button class="btn small" id="qrBtn">Transférer vers le téléphone</button><button class="btn small" id="clearTok">Oublier la clé</button></p><div id="qr" style="display:none"></div>' : ''}
     </div>
     <h2>Créer la clé</h2>
     <div class="card small"><ol>
@@ -328,7 +328,25 @@ function renderSettings() {
     try { localStorage.setItem('gh_token', v); } catch {}
     toast('Clé enregistrée'); await load(); if (data.events) setTab('week');
   };
+  if (has) $('qrBtn').onclick = showQr;
   if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null, config: null }; render(); };
+}
+
+// Shows the key as a QR code so the phone camera can copy it: no typing,
+// and the key never leaves the two devices.
+function loadScript(src) {
+  return new Promise((ok, ko) => { const el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = ko; document.head.appendChild(el); });
+}
+async function showQr() {
+  const box = $('qr');
+  if (box.style.display === 'block') { box.style.display = 'none'; box.innerHTML = ''; return; }
+  try {
+    if (!window.qrcode) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js');
+    const qr = qrcode(0, 'M'); qr.addData(token()); qr.make();
+    box.innerHTML = `<div style="background:#fff;padding:14px;border-radius:12px;width:fit-content;margin:6px auto">${qr.createSvgTag({ cellSize: 5, margin: 0 })}</div>
+      <p class="small muted">Sur le téléphone : vise ce code avec l'appareil photo, touche le texte qui apparaît et copie-le, puis colle-le dans Réglages de l'appli installée. Referme ensuite ce code.</p>`;
+    box.style.display = 'block';
+  } catch { toast('QR indisponible hors ligne'); }
 }
 
 // ---------- boot ----------
