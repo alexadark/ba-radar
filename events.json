@@ -1,0 +1,1278 @@
+{
+  "generated_at": "2026-10-11T20:50:25-03:00",
+  "events": [
+    {
+      "id": "bacapitalgastronomica-20261011-meat-and-fire",
+      "title": "Meat & Fire Buenos Aires",
+      "start": "2026-10-11",
+      "category": "food",
+      "venue": "Hipódromo de Palermo",
+      "barrio": "Palermo",
+      "summary": "Last day of the first Buenos Aires edition of the international live-fire cooking festival with grill masters and chefs from several countries.",
+      "details": "First Buenos Aires edition of the live-fire festival born in Barcelona, with grill masters around the same fire at the Palermo racecourse. Lineup includes Pablo Rivero (Don Julio), Hideki Matsuhisa (Koy Shunka, Barcelona), Sagardi, Nunes Parrilla (São Paulo), Kessel (Asunción) and Refinería (Rosario). Food is bought with meatcoins inside; not the last day after all, it closes Monday Oct 12.",
+      "schedule": "Oct 10 to 12, 2026 (runs through the Monday holiday)",
+      "price": "From $15.000",
+      "ticket_url": "https://meatandfire.org/entradas.html?ticket=foodie",
+      "ticket_info": "meatandfire.org or box office on site: 1 day $15.000; 3 days $30.000; Foodie Pass (1 day + 30 meatcoins) $35.000; Friends on Fire (1 day, 4 people) $45.000; Master of Fire (3 days + 90 meatcoins) $90.000",
+      "links": [
+        {
+          "label": "Festival site",
+          "url": "http://meatandfire.org/"
+        },
+        {
+          "label": "Tickit listing",
+          "url": "https://app.tickit.global/web/event/meat-fire-buenos-aires-2026-2026-10-10"
+        },
+        {
+          "label": "El Planeta Urbano article",
+          "url": "https://elplanetaurbano.com/2026/10/meat-fire-llega-a-buenos-aires-con-tres-dias-de-cocina-al-fuego/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeWeMSmnOWO/",
+      "account": "bacapitalgastronomica",
+      "score": 4
+    },
+    {
+      "id": "usinadelarte-20261011-latinfonico-3",
+      "title": "LATINFÓNICO 3",
+      "start": "2026-10-11",
+      "category": "music",
+      "venue": "Usina del Arte",
+      "address": "Agustín R. Caffarena 1, La Boca",
+      "barrio": "La Boca",
+      "summary": "Afternoon concert with over 100 artists celebrating Latin American rhythms at the Usina del Arte.",
+      "details": "Symphonic salsa concert: the Orquesta Juvenil de San Telmo joins salsa band Mambo Influenciado, over 100 musicians on stage, with a danceable programme of Latin classics.",
+      "schedule": "Sun Oct 11, 17:30, Auditorio",
+      "ticket_url": "https://usinadelarte.ar/actividad/latinfonico-3/",
+      "ticket_info": "Reservation required through the Usina's \"Conseguir entradas\" form; all ages",
+      "artists": [
+        {
+          "name": "Mambo Influenciado",
+          "about": "Buenos Aires salsa band.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeWm_RZjl2m/",
+      "account": "usinadelarte",
+      "score": 3
+    },
+    {
+      "id": "museodelcineba-20261011-festival-cine-inusual",
+      "title": "21° Festival de Cine Inusual de Buenos Aires",
+      "start": "2026-10-11",
+      "category": "culture",
+      "venue": "Cine Gaumont and other venues",
+      "address": "Cine Gaumont, Av. Rivadavia 1635, Congreso (main evening venue)",
+      "barrio": "Congreso",
+      "summary": "Festival of odd, cult and underground cinema, running until October 18 at Cine Gaumont and partner venues.",
+      "details": "21st edition of the festival of odd, cult and low-budget cinema run by Silvia Romero and Fabián Sancho, with competitions for features, documentaries and experimental shorts across six venues. Mostly Argentine titles plus the Mexican La reina, el Buda y Buñuel and the Argentine-Bolivian Yo soy Hermes. Other venues: Espacio Cultural BCN (Alsina 1835), Museo del Cine (Agustín R. Caffarena 51), ATE Cultura (Moreno 2654) and Fundación SAGAI (25 de Mayo 586).",
+      "schedule": "Oct 8 to 18; Gaumont screenings at 22:00 (Bárbara Sun 11, El silencio de Marilyn Tue 13, Yo soy Hermes Wed 14); closing Sun 18, 16:00 at Museo del Cine",
+      "ticket_info": "Gaumont and ATE Cultura: popular prices with student and retiree discounts; Espacio Cultural BCN (bring DNI), Museo del Cine and Fundación SAGAI: free",
+      "links": [
+        {
+          "label": "La Vereda: program and venues",
+          "url": "https://lavereda.com.ar/llega-una-nueva-edicion-del-festival-de-cine-inusual/"
+        },
+        {
+          "label": "Festival blog",
+          "url": "https://festivaldecineinusual.blogspot.com/"
+        },
+        {
+          "label": "Viajeros a Pie article",
+          "url": "https://viajerosapie.com/2026/10/08/21-festival-de-cine-inusual-de-buenos-aires/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeKy39WRZFl/",
+      "account": "museodelcineba",
+      "score": 3
+    },
+    {
+      "id": "planosecuenciacines-20261011-interstellar",
+      "title": "Interstellar",
+      "start": "2026-10-11",
+      "category": "culture",
+      "venue": "Vier Club (patio)",
+      "summary": "Outdoor screening of Interstellar on a giant LED screen with food and drinks.",
+      "post_url": "https://www.instagram.com/p/DeF7PjJx4eU/",
+      "account": "planosecuenciacines",
+      "score": 2
+    },
+    {
+      "id": "ccmatienzo-20261011-vinito-y-amigos",
+      "title": "Vinito y Amigos",
+      "start": "2026-10-11T21:00",
+      "category": "other",
+      "venue": "Club Cultural Matienzo",
+      "address": "Av. Juan B. Justo 2959, Villa Crespo",
+      "barrio": "Chacarita",
+      "summary": "Social meetup to meet new people over a glass of wine (included) at Matienzo, Av. Juan B. Justo 2959.",
+      "links": [
+        {
+          "label": "Club Cultural Matienzo",
+          "url": "https://ccmatienzo.com.ar/"
+        },
+        {
+          "label": "Matienzo on Passline",
+          "url": "https://www.passline.com/venue/club-cultural-matienzo"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeVAVf5D1UW/",
+      "account": "ccmatienzo",
+      "score": 3
+    },
+    {
+      "id": "cafeviniloba-20261011-sexteto-cirse",
+      "title": "Sexteto Cirse",
+      "start": "2026-10-11T21:00",
+      "category": "music",
+      "venue": "Café Vinilo",
+      "address": "Gorriti 3780, Palermo",
+      "barrio": "Palermo",
+      "summary": "Sexteto Cirse plays Café Vinilo tonight.",
+      "ticket_url": "https://www.cafevinilo.com.ar/",
+      "post_url": "https://www.instagram.com/p/DeKJcluMDTD/",
+      "account": "cafeviniloba",
+      "score": 2
+    },
+    {
+      "id": "usinadelarte-20261012-gran-pena",
+      "title": "Gran peña en el Salón Mayor",
+      "start": "2026-10-12",
+      "category": "music",
+      "venue": "Usina del Arte",
+      "address": "Agustín R. Caffarena 1, La Boca",
+      "barrio": "La Boca",
+      "summary": "Holiday Monday folk peña with live music, dancing and a DJ set.",
+      "details": "Holiday-weekend folk peña in the Usina's Salón Mayor, part of a weekend that also includes folklore dance classes on Monday Oct 12.",
+      "links": [
+        {
+          "label": "Folklore classes Oct 12",
+          "url": "https://usinadelarte.ar/actividad/clases-de-folklore-1210/"
+        },
+        {
+          "label": "Usina activities",
+          "url": "https://usinadelarte.ar/actividades/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/reel/DePmbSFvjlK/",
+      "account": "usinadelarte",
+      "score": 3
+    },
+    {
+      "id": "cervantestna-20261012-visita-guiada",
+      "title": "Visita guiada al Teatro Cervantes",
+      "start": "2026-10-12T11:00",
+      "category": "culture",
+      "venue": "Teatro Nacional Cervantes",
+      "address": "Libertad 815, San Nicolás",
+      "barrio": "San Nicolás",
+      "summary": "Guided tour inside the centenary national theatre building.",
+      "schedule": "Mondays 11:00",
+      "ticket_info": "Tickets on the theatre's website",
+      "post_url": "https://www.instagram.com/p/DeXQP5CJlnF/",
+      "account": "cervantestna",
+      "score": 2
+    },
+    {
+      "id": "teatrodelpueblo.arg-20261012-siete-estaciones",
+      "title": "Siete estaciones para hablar de amor",
+      "start": "2026-10-12T20:00",
+      "category": "theatre",
+      "venue": "Teatro del Pueblo",
+      "address": "Lavalle 3636, Abasto",
+      "barrio": "Almagro",
+      "summary": "Victoria Hladilo's Argentores-winning play inspired by Chekhov's story About Love.",
+      "details": "Written and directed by Victoria Hladilo, whose text won the 2023 Argentores prize. Set in early 20th century Buenos Aires: a landowning couple takes in a farm worker and a friendship of three turns into forbidden, dangerous love, crossed by class inequality. Carlos Belloso, Laura Nevole and Manuel Vignau star.",
+      "schedule": "Mondays 20:00",
+      "ticket_info": "Tickets via the link in the theatre's bio",
+      "links": [
+        {
+          "label": "Tiempo Argentino article",
+          "url": "https://www.tiempoar.com.ar/ta_article/victoria-hladilo-siete-estaciones/"
+        },
+        {
+          "label": "Perfil interview",
+          "url": "https://www.perfil.com/noticias/masperfil/victoria-hladilo-lleva-a-chejov-al-teatro-argentino-con-una-historia-de-amor-deseo-y-violencia.phtml"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeGKzUSAmH6/",
+      "account": "teatrodelpueblo.arg",
+      "score": 5
+    },
+    {
+      "id": "cckonex-20261012-lunes-bomba",
+      "title": "Lunes Bomba al aire libre: La Bomba de Tiempo",
+      "start": "2026-10-12T20:00",
+      "category": "music",
+      "venue": "Ciudad Cultural Konex",
+      "address": "Sarmiento 3131, Abasto",
+      "barrio": "Abasto",
+      "summary": "La Bomba de Tiempo's weekly open-air improvised percussion show in the Konex patio.",
+      "details": "La Bomba de Tiempo is a large percussion ensemble that improvises live through a conducted sign language, and its Monday nights at the Konex have been a city ritual for nearly 20 years. The show runs outdoors in the Konex patio, doors at 19:00 and show at 20:00, often with guest musicians.",
+      "schedule": "Every Monday, doors 19:00, show 20:00",
+      "ticket_url": "https://entradas.cckonex.org/",
+      "ticket_info": "Tickets on entradas.cckonex.org.",
+      "artists": [
+        {
+          "name": "La Bomba de Tiempo",
+          "about": "Buenos Aires percussion collective known for conducted improvised drumming nights.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeAx_B1FE7E/",
+      "account": "cckonex",
+      "score": 3
+    },
+    {
+      "id": "bebopclub-20261013-martes-de-charly",
+      "title": "Secches presenta: Martes de Charly (con Sol Feige)",
+      "start": "2026-10-13T22:30",
+      "category": "music",
+      "venue": "Bebop Club",
+      "address": "Uriarte 1658, Palermo Soho",
+      "barrio": "Palermo",
+      "summary": "Piano and voice tribute to Charly García by Secches with guest singer Sol Feige; the cycle repeats on October 20 with Noelia Recalde.",
+      "details": "Secches' October cycle of four piano-and-voice concerts revisiting Charly García's songs in an intimate, contemporary way, with a different guest singer each Tuesday. The ticket page lists Sol Feige for Oct 13 (the flyer said Flor Paz), Noelia Recalde on Oct 20 and Ivonne Guzmán on Oct 27.",
+      "schedule": "Tuesdays 22:30: Oct 13, 20 and 27",
+      "price": "From $18.000",
+      "ticket_url": "https://ticketera.bebopclub.com.ar/evento/11ed3668-caa9-4b15-833b-4fc968b9abdb",
+      "ticket_info": "Bebop ticketing, from $18.000; $15.000 minimum spend per person; each Tuesday has its own ticket page",
+      "links": [
+        {
+          "label": "Bebop Club program",
+          "url": "https://www.bebopclub.com.ar/"
+        },
+        {
+          "label": "Oct 20 tickets",
+          "url": "https://ticketera.bebopclub.com.ar/evento/bef8ef81-fb8e-4f28-a464-0d6a756314d5"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeSoyhnRYvJ/",
+      "account": "bebopclub",
+      "score": 3
+    },
+    {
+      "id": "palermowineclub-20261014-club-del-after",
+      "title": "Club del After",
+      "start": "2026-10-14T19:00",
+      "category": "other",
+      "venue": "Palermo Wine Club",
+      "barrio": "Palermo",
+      "summary": "After-work social night with wine, a DJ and PITCH and OUT OF OFFICE conversation cards to meet people; ticket includes one drink (Eventbrite).",
+      "post_url": "https://www.instagram.com/p/Dd91emwFgwF/",
+      "account": "palermowineclub",
+      "score": 4
+    },
+    {
+      "id": "clubatleticofernandezfierro-20261014-festival-tango-2x4",
+      "title": "II Festival Solidario de Tango de La 2x4",
+      "start": "2026-10-14T20:00",
+      "category": "music",
+      "venue": "Club Atlético Fernández Fierro (CAFF)",
+      "address": "Sánchez de Bustamante 772, Almagro",
+      "barrio": "Almagro",
+      "summary": "Solidarity tango festival in defence of the city's public radios La 2x4 and Once Diez, with several tango acts, Sánchez de Bustamante 772.",
+      "details": "Second solidarity tango festival backing the workers of the city's public radios AM 1110 and FM 92.7 La 2x4 against what organisers call a covert privatisation. Lineup: Orquesta de la EMPA, OT Misteriosa Buenos Aires, Cuarteto Mulenga, Lucrecia Merico with Juan Iruzubieta, La Guardia Nueva, Claudia Moreno and Eliana Sosa, with DJ Marcelo Rojas. Hosted by Paula Sterczek and Graciela Raffa.",
+      "schedule": "Wed Oct 14, doors 19:00, show 20:00",
+      "price": "$15.000",
+      "ticket_url": "https://caff.ar",
+      "ticket_info": "General $15.000, unnumbered; in person at La 2x4 (Gorriti 5995, Mon to Fri 9:00 to 17:00) or by bank transfer via festivaltango2x4@gmail.com",
+      "links": [
+        {
+          "label": "CAFF event page",
+          "url": "https://caff.ar/shows/874"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeNjVTMGiM2/",
+      "account": "clubatleticofernandezfierro",
+      "score": 4
+    },
+    {
+      "id": "bebopclub-20261015-anais-reno-loiacono",
+      "title": "Anaïs Reno & Mariano Loiácono Sextet",
+      "start": "2026-10-15T20:00",
+      "category": "music",
+      "venue": "Bebop Club",
+      "address": "Uriarte 1658, Palermo Soho",
+      "barrio": "Palermo",
+      "summary": "Young New York jazz singer Anaïs Reno plays with Mariano Loiácono's sextet, two sets at 20:00 and 22:30.",
+      "details": "First Buenos Aires appearance of New York-based jazz singer and composer Anaïs Reno, backed by a sextet led by trumpeter Mariano Loiácono. Her debut album Lovesome Thing is devoted to Duke Ellington and Billy Strayhorn; her latest is Lady of the Lavender Mist. Seated jazz club with food and drinks.",
+      "schedule": "Thu Oct 15, two sets at 20:00 and 22:30",
+      "price": "From $35.000",
+      "ticket_url": "https://ticketera.bebopclub.com.ar/evento/2924758f-d8be-465a-bfa1-4289d5b8488e",
+      "ticket_info": "Bebop ticketing, from $35.000; $15.000 minimum spend per person; non-refundable",
+      "artists": [
+        {
+          "name": "Anaïs Reno",
+          "about": "Young New York jazz singer steeped in the Ellington and Strayhorn songbook, with an award-winning live album from London's PizzaExpress.",
+          "youtube": "https://www.youtube.com/watch?v=Bx2XIc56MgE",
+          "spotify": null
+        },
+        {
+          "name": "Mariano Loiácono",
+          "about": "Leading Argentine jazz trumpeter who heads the backing sextet.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Bebop Club program",
+          "url": "https://www.bebopclub.com.ar/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/reel/DeW5fbvJlmU/",
+      "account": "bebopclub",
+      "score": 5
+    },
+    {
+      "id": "galpondeguevara-20261015-prometeo-liberado",
+      "title": "Prometeo liberado",
+      "start": "2026-10-15T20:00",
+      "category": "theatre",
+      "venue": "El Galpón de Guevara",
+      "address": "Guevara 326, Chacarita",
+      "barrio": "Chacarita",
+      "summary": "Returning play by @elpatonar and Taller de Marcos, on the Prometheus myth.",
+      "schedule": "Thursdays Oct 15, 22 and 29 at 20:00",
+      "post_url": "https://www.instagram.com/p/Dd_mXEbkeC1/",
+      "account": "galpondeguevara",
+      "score": 3
+    },
+    {
+      "id": "cervantestna-20261015-santos-vega",
+      "title": "Santos Vega",
+      "start": "2026-10-15T20:00",
+      "category": "theatre",
+      "venue": "Teatro Nacional Cervantes, Sala María Guerrero",
+      "address": "Libertad 815, San Nicolás",
+      "barrio": "San Nicolás",
+      "summary": "Daniel Casablanca's staging of Luis Bayón Herrera's gaucho classic Santos Vega at the national theatre.",
+      "details": "A new version of Luis Bayón Herrera's play about the legendary payador, adapted by Daniel Casablanca, Guadalupe Bervih and Andrés Sahade and directed by Casablanca. It revisits the origins of criollo theatre with original music by Diego Pérez, choreography by Gustavo Carrizo and a large cast of actors, folk dancers and musicians, including Rosario Albornoz and Gonzalo Amor.",
+      "schedule": "Thu to Sun 20:00",
+      "ticket_info": "Tickets via the link in the Cervantes bio and at the box office",
+      "links": [
+        {
+          "label": "Tiempo Argentino agenda",
+          "url": "https://www.tiempoar.com.ar/ta_article/agenda-de-espectaculos-212/"
+        },
+        {
+          "label": "Audition call with creative team",
+          "url": "https://www.recursosculturales.com/teatro-nacional-cervantes-audiciones/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeJ12eYjj0O/",
+      "account": "cervantestna",
+      "score": 4
+    },
+    {
+      "id": "teatrovorterix-20261015-camionero",
+      "title": "Camionero",
+      "start": "2026-10-15T21:00",
+      "category": "music",
+      "venue": "Teatro Vorterix",
+      "address": "Av. Federico Lacroze 3455, Colegiales",
+      "barrio": "Colegiales",
+      "summary": "Rock and roll band Camionero plays a free special show at Teatro Vorterix, first come first served.",
+      "details": "Camionero is a rock and roll duo formed by Joan Manuel Pardo and Santiago Luis, known for its Tracción a Sangre cycle of shows that has sold out Vorterix. This date is billed as a free special show, entry first come, first served.",
+      "schedule": "Thu Oct 15, 21:00",
+      "price": "Free",
+      "artists": [
+        {
+          "name": "Camionero",
+          "about": "Buenos Aires rock and roll duo with a truck-and-engine aesthetic and a loyal live following.",
+          "youtube": "https://www.youtube.com/watch?v=qp2v0gZ_yY4",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Teatro Vorterix on All Access",
+          "url": "https://www.allaccess.com.ar/venue/teatro-vorterix"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeR1ijTg8i3/",
+      "account": "teatrovorterix",
+      "score": 4
+    },
+    {
+      "id": "cafeviniloba-20261015-bellotto-franov-monk",
+      "title": "Américo Bellotto + Hnos Franov: Tribute to Monk",
+      "start": "2026-10-15T22:00",
+      "category": "music",
+      "venue": "Café Vinilo",
+      "address": "Gorriti 3780, Palermo",
+      "barrio": "Palermo",
+      "summary": "Trumpeter Américo Bellotto and the Franov brothers play a Thelonious Monk tribute.",
+      "details": "Américo Bellotto is a well-known Argentine jazz trumpeter, here joined by the Franov brothers for a set of Thelonious Monk compositions. Late show at Café Vinilo's listening room in Palermo.",
+      "ticket_url": "https://www.cafevinilo.com.ar/",
+      "ticket_info": "Tickets on cafevinilo.com.ar",
+      "artists": [
+        {
+          "name": "Américo Bellotto",
+          "about": "Argentine jazz trumpeter and teacher.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Café Vinilo on Cultura BA",
+          "url": "https://www.buenosaires.gob.ar/cultura/cafe-vinilo"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeUsL6IBt5W/",
+      "account": "cafeviniloba",
+      "score": 3
+    },
+    {
+      "id": "teatrovorterix-20261016-viejas-locas",
+      "title": "Viejas Locas",
+      "start": "2026-10-16",
+      "category": "music",
+      "venue": "Teatro Vorterix",
+      "address": "Av. Federico Lacroze 3455, Colegiales",
+      "barrio": "Colegiales",
+      "summary": "Classic Argentine rock and roll band Viejas Locas plays Teatro Vorterix.",
+      "details": "Viejas Locas returns to Vorterix to celebrate 1,000 shows and 15 years of the album Contra la pared, running through songs from all their records.",
+      "ticket_url": "https://www.allaccess.com.ar/event/viejas-locas-x-fya-cumple-mil-shows-y-15-aos-del-disco-contra-la-pared",
+      "ticket_info": "All Access, max 4 tickets per purchase, cardholder verification required; ages 7+",
+      "artists": [
+        {
+          "name": "Viejas Locas",
+          "about": "Classic Argentine rolinga rock and roll band, known for songs like Homero and Perra.",
+          "youtube": "https://www.youtube.com/watch?v=eQWlMqjTGKU",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Teatro Vorterix on All Access",
+          "url": "https://www.allaccess.com.ar/venue/teatro-vorterix"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeIIJ75iYLx/",
+      "account": "teatrovorterix",
+      "score": 4
+    },
+    {
+      "id": "baires_wines-20261016-sunset-ano-personal",
+      "title": "Sunset: tu Año Personal en un vino",
+      "start": "2026-10-16",
+      "category": "food",
+      "venue": "Rooftop overlooking 9 de Julio",
+      "barrio": "San Nicolás",
+      "summary": "Sunset wine tasting with four selected wines on a terrace facing Avenida 9 de Julio, run by @plancito.ba.",
+      "post_url": "https://www.instagram.com/p/DeJ1eSyEY10/",
+      "account": "baires_wines",
+      "score": 2
+    },
+    {
+      "id": "salahumboldt-20261016-besarabia-baban",
+      "title": "Besarabia x Humboldt: Baban",
+      "start": "2026-10-16",
+      "category": "music",
+      "venue": "Sala Humboldt (Niceto Club)",
+      "address": "Cnel. Niceto Vega 5510, Palermo Hollywood",
+      "barrio": "Palermo Hollywood",
+      "summary": "Late-night Besarabia party with Istanbul DJ and producer Baban, plus Vasco.",
+      "price": "$20.000 (lote 1), promos $15.000",
+      "ticket_info": "Venti, lote 1 $20.000",
+      "post_url": "https://www.instagram.com/p/DePU0f4jlXn/",
+      "account": "salahumboldt",
+      "score": 2
+    },
+    {
+      "id": "recitalesdejazzenargentina-20261016-san-isidro-jazz",
+      "title": "San Isidro Jazz 2026 (16th edition)",
+      "start": "2026-10-16",
+      "category": "music",
+      "venue": "Various venues in San Isidro",
+      "barrio": "San Isidro",
+      "summary": "Free two-day jazz festival run by the San Isidro municipality, in its 16th edition.",
+      "details": "San Isidro Jazz has been held every October for 16 years with free concerts in public spaces across the district, the main stage usually in the gardens of the Museo Pueyrredón. Past editions brought international guests such as Robin Eubanks. The 2026 lineup could not be confirmed online.",
+      "schedule": "Fri 16 and Sat 17 Oct",
+      "price": "Free",
+      "ticket_info": "Free concerts; check sanisidro.gob.ar/sanisidrojazz for the program.",
+      "links": [
+        {
+          "label": "Festival page",
+          "url": "https://www.sanisidro.gob.ar/sanisidrojazz"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeUKq7rIAGh/",
+      "account": "recitalesdejazzenargentina",
+      "score": 3
+    },
+    {
+      "id": "bebopclub-20261016-escalandrum-miles-cien",
+      "title": "Escalandrum presenta Miles Cien",
+      "start": "2026-10-16T20:00",
+      "category": "music",
+      "venue": "Bebop Club",
+      "address": "Uriarte 1658, Palermo Soho",
+      "barrio": "Palermo",
+      "summary": "Pipi Piazzolla's sextet Escalandrum plays Miles Davis's Second Great Quintet repertoire for the Miles centenary, Friday and Saturday at 20:00 and 22:30.",
+      "details": "Escalandrum plays Miles Davis for the first time, focusing on the repertoire of his Second Great Quintet (1964 to 1969) in their own language. Led by drummer Daniel \"Pipi\" Piazzolla, Astor's grandson, with Nicolás Guerschberg on piano, Mariano Sívori, Damián Fogiel, Gustavo Musso and Martín Pantyrer. Four shows over two nights.",
+      "schedule": "Fri Oct 16 and Sat Oct 17, 20:00 and 22:30",
+      "price": "From $20.000",
+      "ticket_url": "https://ticketera.bebopclub.com.ar/evento/3ea13fd7-5d09-4d82-b5f6-817f46cc37a4",
+      "ticket_info": "Bebop ticketing, from $20.000; $15.000 minimum spend per person; non-refundable",
+      "artists": [
+        {
+          "name": "Escalandrum",
+          "about": "Pipi Piazzolla's sextet, one of Argentina's top jazz groups, fusing jazz with tango and folk.",
+          "youtube": "https://www.youtube.com/watch?v=cFn99V365z8",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Bebop Club program",
+          "url": "https://www.bebopclub.com.ar/"
+        },
+        {
+          "label": "Escalandrum on YouTube",
+          "url": "https://www.youtube.com/@Escalandrum"
+        }
+      ],
+      "post_url": "https://www.instagram.com/reel/DeW9jQ-pAOw/",
+      "account": "bebopclub",
+      "score": 5
+    },
+    {
+      "id": "usinadelarte-20261016-ansambel-sasa-avsenika",
+      "title": "Ansambel Saša Avsenika",
+      "start": "2026-10-16T20:00",
+      "category": "music",
+      "venue": "Usina del Arte",
+      "address": "Agustín R. Caffarena 1, La Boca",
+      "barrio": "La Boca",
+      "summary": "Slovenian Alpine folk ensemble Ansambel Saša Avsenika plays the Usina auditorium.",
+      "details": "Sašo Avsenik's ensemble carries on the Slovenian Alpine (Oberkrainer) folk tradition of his grandfather Slavko Avsenik, with accordion, clarinet, trumpet, guitar, bass and two singers.",
+      "artists": [
+        {
+          "name": "Ansambel Saša Avsenika",
+          "about": "Slovenian ensemble led by accordionist Sašo Avsenik, heir to the Avsenik brothers' Alpine folk sound.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Ensemble site",
+          "url": "https://www.saso-avsenik.com/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeSPzIOj8t9/",
+      "account": "usinadelarte",
+      "score": 3
+    },
+    {
+      "id": "teatrodelpueblo.arg-20261016-osamenta-y-patria",
+      "title": "Osamenta y patria",
+      "start": "2026-10-16T20:00",
+      "category": "theatre",
+      "venue": "Teatro del Pueblo",
+      "address": "Lavalle 3636, Abasto",
+      "barrio": "Almagro",
+      "summary": "Andrés Binetti's 19th-century theatrical road movie across the pampas.",
+      "details": "Written and directed by Andrés Binetti. A palaeontologist chasing letters about a prehistoric 'flying cow' skeleton travels through the mythical world of the 19th-century pampas, in chapters built like the Odyssey. Themes: homeland, the journey and difference.",
+      "schedule": "Fridays 20:00",
+      "ticket_info": "Tickets via the link in the theatre's bio",
+      "links": [
+        {
+          "label": "Tiempo Argentino review",
+          "url": "https://www.tiempoar.com.ar/ta_article/osamenta-y-patria/"
+        },
+        {
+          "label": "Perfil article",
+          "url": "https://www.perfil.com/noticias/espectaculos/un-devenir-nacional.phtml"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeIuElmApDT/",
+      "account": "teatrodelpueblo.arg",
+      "score": 4
+    },
+    {
+      "id": "payroteatro-20261016-huellas-de-haroldo",
+      "title": "Huellas de Haroldo",
+      "start": "2026-10-16T20:30",
+      "category": "theatre",
+      "venue": "Teatro Payró",
+      "barrio": "San Nicolás",
+      "summary": "Play about the writer Haroldo Conti, back for five Friday performances.",
+      "schedule": "Fridays 20:30, 5 performances from Oct 16",
+      "ticket_info": "Tickets via the link in bio; discount promotions available",
+      "post_url": "https://www.instagram.com/p/DeQBURyTFEh/",
+      "account": "payroteatro",
+      "score": 3
+    },
+    {
+      "id": "cafeviniloba-20261016-demare-on-the-rock",
+      "title": "María José Demare: Demare on the rock",
+      "start": "2026-10-16T21:00",
+      "category": "music",
+      "venue": "Café Vinilo",
+      "address": "Gorriti 3780, Palermo",
+      "barrio": "Palermo",
+      "summary": "Singer María José Demare presents a rock repertoire with Juanma Turano on piano.",
+      "details": "María José Demare is a Gardel-winning Argentine singer, songwriter and actress, known for tango and romantic ballads, who started out in the musicals Hair and El diluvio que viene. Here she takes on rock songs in a voice and piano format with Juanma Turano. Café Vinilo is an intimate Palermo listening room built around a Steinway.",
+      "ticket_url": "https://www.cafevinilo.com.ar/",
+      "ticket_info": "Tickets on cafevinilo.com.ar",
+      "artists": [
+        {
+          "name": "María José Demare",
+          "about": "Argentine singer and actress spanning tango, ballads and rock, Gardel award winner in 2023.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Café Vinilo on Cultura BA",
+          "url": "https://www.buenosaires.gob.ar/cultura/cafe-vinilo"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeXzvVbALwZ/",
+      "account": "cafeviniloba",
+      "score": 4
+    },
+    {
+      "id": "teatrotimbre4-20261016-llego-la-musica",
+      "title": "Llegó la música",
+      "start": "2026-10-16T21:30",
+      "category": "theatre",
+      "venue": "Timbre 4 (Sala Boedo)",
+      "address": "Av. Boedo 640",
+      "barrio": "Boedo",
+      "summary": "Friday show by Maite Velo in Timbre 4's October program.",
+      "schedule": "Fridays 21:30 in October",
+      "post_url": "https://www.instagram.com/p/Dd9IEcxPshg/",
+      "account": "teatrotimbre4",
+      "score": 2
+    },
+    {
+      "id": "la.tangente-20261016-romphonics",
+      "title": "Romphonics",
+      "start": "2026-10-16T23:00",
+      "category": "music",
+      "venue": "La Tangente",
+      "address": "Honduras 5317, Palermo",
+      "barrio": "Palermo",
+      "summary": "Indie rock band Romphonics plays a late show at La Tangente, Honduras 5317.",
+      "details": "Indie rock band led by Rommel Rey, previewing its third studio album with singles like ¿Quién soy yo?, a melancholic indie rock song. Shares the late slot with Macedonia.",
+      "schedule": "Fri Oct 16, late show listed at 23:50, shared bill with Macedonia",
+      "ticket_url": "https://tickets.latangente.com.ar/",
+      "ticket_info": "La Tangente ticketing (listed as Romphonics + Macedonia)",
+      "artists": [
+        {
+          "name": "Romphonics",
+          "about": "Buenos Aires indie rock band fronted by Rommel Rey, working on its third album.",
+          "youtube": "https://www.youtube.com/watch?v=egge1joCeao",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "La Tangente on Bandsintown",
+          "url": "https://www.bandsintown.com/v/10202607-la-tangente"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/Dd9zV1hnazP/",
+      "account": "la.tangente",
+      "score": 4
+    },
+    {
+      "id": "uniclubba-20261016-gran-estilo-siniestro-oktubre",
+      "title": "El Gran Estilo Siniestro: De regreso a Oktubre",
+      "start": "2026-10-16T23:59",
+      "category": "music",
+      "venue": "Uniclub",
+      "address": "Guardia Vieja 3360, Almagro (Abasto)",
+      "barrio": "Almagro",
+      "summary": "Patricio Rey y sus Redonditos de Ricota tribute band plays the album Oktubre for its 40th anniversary, Guardia Vieja 3360.",
+      "details": "Redondos tribute band El Gran Estilo Siniestro plays Patricio Rey y sus Redonditos de Ricota's Oktubre in full for its 40th anniversary, plus classics and rarer songs. Guest act: Canciones & Almas, a Callejeros tribute. The band's recent Uniclub dates sold out.",
+      "schedule": "Fri Oct 16, from 23:59",
+      "ticket_info": "Sold through Alpogo",
+      "links": [
+        {
+          "label": "Revista El Abasto article",
+          "url": "https://www.revistaelabasto.com.ar/a-40-anos-de-oktubre-homenaje-a-los-redondos-en-el-uniclub-del-abasto/"
+        },
+        {
+          "label": "Uniclub on Alpogo",
+          "url": "https://alpogo.com/lugar/301"
+        }
+      ],
+      "post_url": "https://www.instagram.com/reel/DeKg2tvp5W1/",
+      "account": "uniclubba",
+      "score": 3
+    },
+    {
+      "id": "clubatleticofernandezfierro-20261017-soneros-calamani-medaras",
+      "title": "Soneros del Calamaní + Me Darás Mil Hijos",
+      "start": "2026-10-17",
+      "category": "music",
+      "venue": "Club Atlético Fernández Fierro (CAFF)",
+      "address": "Sánchez de Bustamante 772, Almagro",
+      "barrio": "Almagro",
+      "summary": "Afro-Latin son group Soneros del Calamaní and indie-folk band Me Darás Mil Hijos share a stage for the first time.",
+      "details": "Shared night at the CAFF, the cooperative club run by the Fernández Fierro tango orchestra in a former garage. Me Darás Mil Hijos is a cult indie band mixing rock, tango, folk and bolero with acoustic guitars, double bass, accordion, violin and horns, back together after a long pause and working on new songs. Soneros del Calamaní plays Veracruz son jarocho crossed with Argentine and Colombian folk. Cooperative bar with pizza, empanadas and craft beer.",
+      "schedule": "Sat Oct 17, doors 20:00, show 21:00",
+      "price": "$25.000 presale / $35.000",
+      "ticket_url": "https://planout.ar/eventos/es/entradas-musica-me-daras-mil-hijos-sonera-calamani",
+      "ticket_info": "Plan Out presale $25.000 plus service charge; general $35.000; first come, first seated",
+      "artists": [
+        {
+          "name": "Me Darás Mil Hijos",
+          "about": "Cult Buenos Aires acoustic orchestra-band crossing rock, tango and folk, once guest band for Goran Bregović at Luna Park.",
+          "youtube": null,
+          "spotify": null
+        },
+        {
+          "name": "Soneros del Calamaní",
+          "about": "Buenos Aires group playing Mexican son jarocho and Latin American folk with a festive spirit.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "CAFF event page",
+          "url": "https://caff.ar/shows/865"
+        }
+      ],
+      "post_url": "https://www.instagram.com/reel/DeVUa-sTFKX/",
+      "account": "clubatleticofernandezfierro",
+      "score": 5
+    },
+    {
+      "id": "planosecuenciacines-20261017-tumba-luciernagas",
+      "title": "La Tumba de las Luciérnagas",
+      "start": "2026-10-17",
+      "category": "culture",
+      "venue": "Terraza Post Street Bar (Thames 1885)",
+      "barrio": "Palermo",
+      "summary": "Open-air rooftop screening of Studio Ghibli's Grave of the Fireflies with food and drinks.",
+      "post_url": "https://www.instagram.com/p/DeVLvzPxTWG/",
+      "account": "planosecuenciacines",
+      "score": 4
+    },
+    {
+      "id": "turismobuenosairesok-20261017-expo-matear",
+      "title": "Expo MATEAR",
+      "start": "2026-10-17",
+      "category": "food",
+      "venue": "La Rural",
+      "address": "La Rural, Pabellón Ocre; entrance Av. Santa Fe 4201 (Plaza Italia), Palermo",
+      "barrio": "Palermo",
+      "summary": "Two-day mate fair (October 17 and 18) with yerba producers, tastings and related products.",
+      "details": "Two-day mate fair with stands from the main yerba brands, tastings, new products, talks, cultural activities and mate-inspired food. Goes ahead rain or shine.",
+      "schedule": "Sat Oct 17 and Sun Oct 18, 12:00 to 20:00",
+      "ticket_url": "https://www.laruralticket.com.ar/event/expo-matear-2026",
+      "ticket_info": "La Rural Ticket online (valid either day, 4x3 pack online only) or box office 12:00 to 19:00 for same day; under 3 free; retirees 50% off at the box office",
+      "links": [
+        {
+          "label": "La Rural Ticket",
+          "url": "https://www.laruralticket.com.ar/event/expo-matear-2026"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeQBOn9mee2/",
+      "account": "turismobuenosairesok",
+      "score": 3
+    },
+    {
+      "id": "teatrovorterix-20261017-los-caligaris",
+      "title": "Los Caligaris",
+      "start": "2026-10-17",
+      "category": "music",
+      "venue": "Teatro Vorterix",
+      "address": "Av. Federico Lacroze 3455, Colegiales",
+      "barrio": "Colegiales",
+      "summary": "Córdoba's circus-rock and ska band Los Caligaris plays Teatro Vorterix.",
+      "details": "The Córdoba circus-rock band presents its latest album Caligaris Sí plus the classics, in a colourful, clown-styled show built around audience participation.",
+      "ticket_url": "https://www.allaccess.com.ar/event/los-caligaris",
+      "ticket_info": "All Access, max 4 tickets per purchase, cardholder verification required; ages 7+",
+      "artists": [
+        {
+          "name": "Los Caligaris",
+          "about": "Córdoba band mixing ska, rock and cuarteto with clown makeup and a festive circus stage show.",
+          "youtube": "https://www.youtube.com/watch?v=qanOLwi_oOA",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Teatro Vorterix on All Access",
+          "url": "https://www.allaccess.com.ar/venue/teatro-vorterix"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeIIJ75iYLx/",
+      "account": "teatrovorterix",
+      "score": 3
+    },
+    {
+      "id": "nicetobar-20261017-la-controversia",
+      "title": "La Controversia: fiesta salsera",
+      "start": "2026-10-17",
+      "category": "music",
+      "venue": "Niceto Bar",
+      "address": "Cnel. Niceto Vega 5507, Palermo Hollywood",
+      "barrio": "Palermo Hollywood",
+      "summary": "Live salsa sextet La Controversia, then DJ Mamalunga with salsa, cumbia and reggaeton.",
+      "ticket_info": "Reservation via link in bio",
+      "post_url": "https://www.instagram.com/reel/DeNXw25hBoh/",
+      "account": "nicetobar",
+      "score": 3
+    },
+    {
+      "id": "museodelcineba-20261017-dia-peliculas-familiares",
+      "title": "El Día de las Películas Familiares",
+      "start": "2026-10-17T15:00",
+      "category": "culture",
+      "venue": "Museo del Cine Pablo Ducrós Hicken",
+      "address": "Agustín R. Caffarena 51, La Boca",
+      "barrio": "La Boca",
+      "summary": "Home Movie Day: screenings of amateur family films from personal archives.",
+      "details": "Home Movie Day: the museum team checks, repairs and screens Super 8 and 16 mm family films that visitors bring in, birthdays, holidays and trips included. An open, participatory celebration of amateur cinema.",
+      "schedule": "Sat Oct 17, 15:00 to 18:00",
+      "price": "Free",
+      "ticket_info": "Free; tickets handed out a few minutes before each screening",
+      "links": [
+        {
+          "label": "La Vereda article",
+          "url": "https://lavereda.com.ar/dia-de-las-peliculas-familiares-en-el-museo-del-cine-3/"
+        },
+        {
+          "label": "Museo del Cine newsletter",
+          "url": "https://museodelcinedebuenosaires.substack.com/p/novedades-del-museo-del-cine-ba-3a5"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/Dd7YHSfnyGQ/",
+      "account": "museodelcineba",
+      "score": 2
+    },
+    {
+      "id": "fundacionosde-20261017-imagen-iluminada",
+      "title": "La imagen iluminada (taller de Ariel Cusnir)",
+      "start": "2026-10-17T17:00",
+      "category": "culture",
+      "venue": "Fundación OSDE",
+      "barrio": "Retiro",
+      "summary": "Hand-coloured photography workshop led by artist Ariel Cusnir; registration required.",
+      "post_url": "https://www.instagram.com/p/DeMgznpFlNg/",
+      "account": "fundacionosde",
+      "score": 2
+    },
+    {
+      "id": "nicetoclub-20261017-vinilos-intimos-coleman",
+      "title": "Vinilos Íntimos: Richard Coleman (Fricción, Para terminar)",
+      "start": "2026-10-17T19:00",
+      "category": "music",
+      "venue": "Niceto Bar",
+      "address": "Niceto Vega 5507, Palermo (Niceto Bar, opposite the club)",
+      "barrio": "Palermo Hollywood",
+      "summary": "Launch of a record-listening series where Richard Coleman talks through Fricción's album Para terminar with journalist Roque Casciero, plus a vinyl fair and DJ sets.",
+      "details": "First session of a listening series at Niceto Bar: Richard Coleman plays and talks through Para terminar (1988), the second and last album by Fricción, the band he formed with Gustavo Cerati, produced by Cerati and recorded almost live. Coleman also led Los 7 Delfines and played guitar for Charly García, Soda Stereo and Cerati.",
+      "artists": [
+        {
+          "name": "Richard Coleman",
+          "about": "Argentine rock guitarist and songwriter, founder of Fricción and Los 7 Delfines and long-time Cerati collaborator.",
+          "youtube": "https://www.youtube.com/watch?v=kxIt_PPTHog",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Niceto Club",
+          "url": "https://www.nicetoclub.com/"
+        },
+        {
+          "label": "Richard Coleman official site",
+          "url": "https://richardcoleman.net/notas/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeUrXUhJh5n/",
+      "account": "nicetoclub",
+      "score": 5
+    },
+    {
+      "id": "teatrodelpueblo.arg-20261017-huida-permanente",
+      "title": "Huida permanente",
+      "start": "2026-10-17T19:00",
+      "category": "theatre",
+      "venue": "Teatro del Pueblo",
+      "address": "Lavalle 3636, Abasto",
+      "barrio": "Almagro",
+      "summary": "Dramatic comedy by Brenda Bonotto with Julia Funari, Luján Blaksley and Alejandro E. Cohen.",
+      "schedule": "Saturdays 19:00",
+      "ticket_info": "Tickets via the link in the theatre's bio",
+      "post_url": "https://www.instagram.com/p/DeP4xAuA38P/",
+      "account": "teatrodelpueblo.arg",
+      "score": 3
+    },
+    {
+      "id": "payroteatro-20261017-galerias-objetos-tristes",
+      "title": "Galerías de objetos tristes",
+      "start": "2026-10-17T19:00",
+      "category": "theatre",
+      "venue": "Teatro Payró",
+      "barrio": "San Nicolás",
+      "summary": "Saturday play from the Payró's October program.",
+      "schedule": "Saturdays 19:00",
+      "post_url": "https://www.instagram.com/p/Dd9GCAyjiV0/",
+      "account": "payroteatro",
+      "score": 2
+    },
+    {
+      "id": "galpondeguevara-20261017-las-bestias",
+      "title": "Las bestias",
+      "start": "2026-10-17T20:00",
+      "category": "theatre",
+      "venue": "El Galpón de Guevara",
+      "address": "Guevara 326, Chacarita",
+      "barrio": "Chacarita",
+      "summary": "Physical dance piece by choreographer David Señorán's company.",
+      "details": "Señorán's piece, restaged several times since its premiere, deals with tribal origins, primal savagery, belonging, violence and expulsion, in a mostly male cast. The choreographer describes it as a work for audiences who aren't meek.",
+      "schedule": "Saturdays 20:00 in October",
+      "ticket_info": "Alternativa Teatral or the theatre's box office",
+      "links": [
+        {
+          "label": "Perfil review",
+          "url": "https://noticias.perfil.com/noticias/danza/fieras-humana.phtml"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/Dd_mXEbkeC1/",
+      "account": "galpondeguevara",
+      "score": 4
+    },
+    {
+      "id": "cckonex-20261017-alucinante-viaje-redondos",
+      "title": "El alucinante viaje de Patricio Rey y sus Redonditos de Ricota",
+      "start": "2026-10-17T20:00",
+      "category": "culture",
+      "venue": "Ciudad Cultural Konex",
+      "address": "Sarmiento 3131, Abasto",
+      "barrio": "Abasto",
+      "summary": "Screening of the Comando Luddista documentary on the origins of Los Redondos before their first album Gulp!.",
+      "details": "A 100-minute documentary by the collective Comando Luddista, first released in 2014, that reconstructs the Redondos universe before Gulp! (1985). The main voice is Guillermo Beilinson, Skay's brother, with Rocambole, Kubero Díaz, Horacio Fontova and journalists such as Claudio Kleiman and Alfredo Rosso, plus rare archive images and audio. Shown in the Gran Sala of the Konex as part of its Experiencias series.",
+      "ticket_url": "https://entradas.cckonex.org/",
+      "ticket_info": "Sold on entradas.cckonex.org; an August 2026 screening was $14.000 general admission plus service charge, unnumbered seats.",
+      "links": [
+        {
+          "label": "Otros Cines article",
+          "url": "https://otroscines.com/post/el-alucinante-viaje-de-patricio-rey-y-sus-redonditos-de-ricota-se-proyecta-en-el-konex"
+        },
+        {
+          "label": "Canal 26 article",
+          "url": "https://www.canal26.com/espectaculos/2026/08/29/atencion-ricoteros-llega-al-konex-el-documental-que-revela-la-historia-jamas-contada-antes-de-gulp/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeAx_B1FE7E/",
+      "account": "cckonex",
+      "score": 4
+    },
+    {
+      "id": "teatrotimbre4-20261017-no-se-fia",
+      "title": "No se fía",
+      "start": "2026-10-17T20:30",
+      "category": "theatre",
+      "venue": "Timbre 4 (Sala Boedo)",
+      "address": "Av. Boedo 640",
+      "barrio": "Boedo",
+      "summary": "Diego Faturos's long-running play, back after six years and over 100 performances.",
+      "schedule": "Saturdays 20:30",
+      "ticket_info": "Alternativa Teatral; 50% off for under 28s",
+      "post_url": "https://www.instagram.com/p/Dd6mWQJP9UG/",
+      "account": "teatrotimbre4",
+      "score": 3
+    },
+    {
+      "id": "baires_wines-20261017-noche-en-las-alturas",
+      "title": "Noche en las Alturas",
+      "start": "2026-10-17T21:00",
+      "category": "food",
+      "venue": "Espacio Barolo, piso 16 (Av. de Mayo 1370)",
+      "barrio": "Monserrat",
+      "summary": "Wine tasting stations with a panoramic night view from the 16th floor of Palacio Barolo, 21:00 to 23:30.",
+      "price": "$60.000",
+      "ticket_url": "https://www.baireswines.com.ar",
+      "post_url": "https://www.instagram.com/p/DeFj88WxJmv/",
+      "account": "baires_wines",
+      "score": 3
+    },
+    {
+      "id": "teatrodelpueblo.arg-20261018-expediente-ar",
+      "title": "Expediente A.R.",
+      "start": "2026-10-18T17:00",
+      "category": "theatre",
+      "venue": "Teatro del Pueblo",
+      "address": "Lavalle 3636, Abasto",
+      "barrio": "Almagro",
+      "summary": "Play by Melisa Freund with a five-actor cast.",
+      "schedule": "Sundays 17:00",
+      "ticket_info": "Tickets via the link in the theatre's bio",
+      "post_url": "https://www.instagram.com/p/DeP4blgg4r4/",
+      "account": "teatrodelpueblo.arg",
+      "score": 3
+    },
+    {
+      "id": "payroteatro-20261018-saverio-el-cruel",
+      "title": "Saverio el cruel",
+      "start": "2026-10-18T17:00",
+      "category": "theatre",
+      "venue": "Teatro Payró",
+      "barrio": "San Nicolás",
+      "summary": "Roberto Arlt's classic play, on Sunday afternoons.",
+      "schedule": "Sundays 17:00",
+      "ticket_info": "Tickets via the link in bio",
+      "post_url": "https://www.instagram.com/p/Dd7U4F5Rif1/",
+      "account": "payroteatro",
+      "score": 3
+    },
+    {
+      "id": "payroteatro-20261018-diario-de-wilda",
+      "title": "El diario de Wilda o la reconstrucción de un crimen",
+      "start": "2026-10-18T20:00",
+      "category": "theatre",
+      "venue": "Teatro Payró",
+      "barrio": "San Nicolás",
+      "summary": "Sunday evening play from the Payró's October program.",
+      "schedule": "Sundays 20:00",
+      "post_url": "https://www.instagram.com/p/Dd9GCAyjiV0/",
+      "account": "payroteatro",
+      "score": 2
+    },
+    {
+      "id": "indiefolks-20261019-kneecap",
+      "title": "Kneecap",
+      "start": "2026-10-19",
+      "category": "music",
+      "venue": "C Art Media",
+      "address": "Av. Corrientes 6271, Chacarita",
+      "barrio": "Chacarita",
+      "summary": "First Argentine show by the Belfast Irish-language hip-hop trio Kneecap.",
+      "details": "Kneecap play their first ever show in Argentina, touring their second studio album Fenian. Produced by Indie Folks at C Art Media. Start time not published yet; check Passline before going.",
+      "price": "From $75.000",
+      "ticket_url": "https://www.passline.com/eventos/kcp-c-art-media",
+      "ticket_info": "Passline, from $75.000; last tickets according to the promoter",
+      "artists": [
+        {
+          "name": "Kneecap",
+          "about": "Belfast rap trio mixing Irish and English, known for raucous live shows and their award-winning 2024 film.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Indie Hoy listing",
+          "url": "https://indiehoy.com/agenda/kneecap-argentina/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeKwXGXxgXS/",
+      "account": "indiefolks",
+      "score": 5
+    },
+    {
+      "id": "cervantestna-20261019-laboratorio-publicos",
+      "title": "Laboratorio Internacional de Creación y Desarrollo de Públicos Culturales",
+      "start": "2026-10-19",
+      "category": "culture",
+      "venue": "Teatro Nacional Cervantes (and online)",
+      "address": "Libertad 815, San Nicolás",
+      "barrio": "San Nicolás",
+      "summary": "Five-day international lab on building audiences for culture, online with in-person sessions at the Cervantes.",
+      "schedule": "Oct 19 to 23, online plus in-person activities",
+      "price": "Free",
+      "ticket_info": "Free with registration",
+      "post_url": "https://www.instagram.com/p/DeUIHLQkeH1/",
+      "account": "cervantestna",
+      "score": 2
+    },
+    {
+      "id": "bebopclub-20261019-big-band-anais-reno",
+      "title": "Bebop Big Band + Anaïs Reno",
+      "start": "2026-10-19T20:00",
+      "category": "music",
+      "venue": "Bebop Club",
+      "address": "Uriarte 1658, Palermo Soho",
+      "barrio": "Palermo",
+      "summary": "New York singer Anaïs Reno fronts the 16-piece Bebop Big Band for a swing night.",
+      "details": "Anaïs Reno sings with the 16-piece Bebop Big Band, the house ensemble that plays the classic big band repertoire, for a night of jazz vocals and swing. A cheaper way to catch her than the sextet show on the 15th.",
+      "schedule": "Mon Oct 19, 20:00",
+      "price": "From $20.000",
+      "ticket_url": "https://ticketera.bebopclub.com.ar/evento/d6901eff-c188-494f-8c38-38ce689d709f",
+      "ticket_info": "Bebop ticketing, from $20.000; $15.000 minimum spend per person; non-refundable",
+      "artists": [
+        {
+          "name": "Anaïs Reno",
+          "about": "Young New York jazz singer steeped in the Ellington and Strayhorn songbook.",
+          "youtube": "https://www.youtube.com/watch?v=Bx2XIc56MgE",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Bebop Club program",
+          "url": "https://www.bebopclub.com.ar/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/reel/DeUjdLEJgiY/",
+      "account": "bebopclub",
+      "score": 4
+    },
+    {
+      "id": "bebopclub-20261019-grito-sagrado",
+      "title": "Grito Sagrado: canciones indispensables del rock nacional",
+      "start": "2026-10-19T22:30",
+      "category": "music",
+      "venue": "Bebop Club",
+      "address": "Uriarte 1658, Palermo Soho",
+      "barrio": "Palermo",
+      "summary": "Luna Sujatovich and Lucas Heredia revisit essential Argentine rock songs.",
+      "details": "Singer-pianist Luna Sujatovich and Córdoba musician-producer Lucas Heredia rework essential Argentine rock songs with piano, guitar and two voices.",
+      "schedule": "Mondays Oct 19 and 26, 22:30",
+      "price": "From $15.000",
+      "ticket_url": "https://ticketera.bebopclub.com.ar/evento/9d8f8009-cae5-468d-8894-2c1b3e2db845",
+      "ticket_info": "Bebop ticketing, from $15.000; $15.000 minimum spend per person",
+      "artists": [
+        {
+          "name": "Luna Sujatovich",
+          "about": "Buenos Aires singer, pianist, composer and arranger.",
+          "youtube": null,
+          "spotify": null
+        },
+        {
+          "name": "Lucas Heredia",
+          "about": "Córdoba musician, composer and producer.",
+          "youtube": null,
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Bebop Club program",
+          "url": "https://www.bebopclub.com.ar/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/Dd7LBc0lE4_/",
+      "account": "bebopclub",
+      "score": 3
+    },
+    {
+      "id": "bebopclub-20261021-chris-cain",
+      "title": "Chris Cain, Blues Guitar Master",
+      "start": "2026-10-21T20:00",
+      "category": "music",
+      "venue": "Bebop Club",
+      "address": "Uriarte 1658, Palermo Soho",
+      "barrio": "Palermo",
+      "summary": "US blues guitarist Chris Cain plays Bebop Club on October 21, 22 and 23 (20:00, plus 22:30 on Thursday and Friday).",
+      "details": "California blues guitarist and singer Chris Cain returns to Buenos Aires for three nights billed as \"The Last Dance\", mixing blues, soul and jazz. Local band: Willy Raíces on keys, Rafa Nasta on rhythm guitar, Mauro Ceriello on bass and Gabriel Cabiaglia on drums.",
+      "schedule": "Wed Oct 21 20:00; Thu Oct 22 and Fri Oct 23 20:00 and 22:30",
+      "price": "From $65.000",
+      "ticket_url": "https://ticketera.bebopclub.com.ar/evento/7889d624-93ad-4075-a07a-5aa754c8390f",
+      "ticket_info": "Bebop ticketing, from $65.000; $15.000 minimum spend per person; non-refundable",
+      "artists": [
+        {
+          "name": "Chris Cain",
+          "about": "Alligator Records blues guitarist with jazz-inflected phrasing, praised by Joe Bonamassa as his favourite blues player today.",
+          "youtube": "https://www.youtube.com/watch?v=Ez0DEQSdqVQ",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Bebop Club program",
+          "url": "https://www.bebopclub.com.ar/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/Dd7LBc0lE4_/",
+      "account": "bebopclub",
+      "score": 5
+    },
+    {
+      "id": "timeout.buenosaires-20261022-mubi-fest",
+      "title": "MUBI FEST Buenos Aires",
+      "start": "2026-10-22",
+      "category": "culture",
+      "venue": "Cinépolis Houssay and U.House",
+      "address": "Cinépolis Houssay, Av. Córdoba 2135, Balvanera; also U.House, Aguirre 1410, Villa Crespo",
+      "barrio": "Recoleta / Balvanera",
+      "summary": "MUBI's curated film festival returns to Buenos Aires from October 22 to 25.",
+      "details": "Third Buenos Aires edition of MUBI's festival: about 20 features plus shorts across all four Cinépolis Houssay rooms, with talks and musical activities. Highlights include new films by Zvyagintsev (Minotauro), Na Hong-jin (Hope), Nicolas Winding Refn, Pawlikowski and Lukas Dhont, 4K restorations of The Thing, Videodrome and Torre Nilsson's La casa del ángel, and a Voilà Varda short-film selection.",
+      "schedule": "Thu Oct 22 to Sun Oct 25",
+      "ticket_info": "Tickets for Cinépolis Houssay screenings on sale at mubifest.com (prices not published in coverage)",
+      "links": [
+        {
+          "label": "Time Out guide",
+          "url": "https://www.timeout.com/es/buenos-aires/mubi-fest-2026-cinepolis-houssay"
+        },
+        {
+          "label": "Otros Cines program and reviews",
+          "url": "https://www.otroscines.com/post/mubi-fest-buenos-aires-2026-toda-la-programacion-y-nuestras-criticas"
+        },
+        {
+          "label": "Micropsia reviews",
+          "url": "https://www.micropsiacine.com/2026/10/mubi-fest-buenos-aires-12-criticas-toda-la-info-cinepolis-houssay/"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeRsQ1slKnU/",
+      "account": "timeout.buenosaires",
+      "score": 4
+    },
+    {
+      "id": "teatrovorterix-20261023-salta-la-banca",
+      "title": "Salta La Banca",
+      "start": "2026-10-23",
+      "category": "music",
+      "venue": "Teatro Vorterix",
+      "address": "Av. Federico Lacroze 3455, Colegiales",
+      "barrio": "Colegiales",
+      "summary": "Rock barrial band Salta La Banca plays Teatro Vorterix.",
+      "details": "Rock barrial band from Villa Raffo led by Santi Aysine, back since 2024 after a hiatus. Eight-piece lineup playing the established repertoire plus new songs ahead of an album planned for 2027.",
+      "ticket_url": "https://www.allaccess.com.ar/event/salta-la-banca",
+      "ticket_info": "All Access, max 4 tickets per purchase, cardholder verification required; ages 7+",
+      "artists": [
+        {
+          "name": "Salta La Banca",
+          "about": "Argentine rock barrial band formed in 2007, fronted by Santi Aysine.",
+          "youtube": "https://www.youtube.com/watch?v=IYAJOf6hgow",
+          "spotify": null
+        }
+      ],
+      "links": [
+        {
+          "label": "Teatro Vorterix on All Access",
+          "url": "https://www.allaccess.com.ar/venue/teatro-vorterix"
+        }
+      ],
+      "post_url": "https://www.instagram.com/p/DeIIJ75iYLx/",
+      "account": "teatrovorterix",
+      "score": 3
+    },
+    {
+      "id": "salahumboldt-20261023-preta-porter",
+      "title": "Preta Porter + Gitanos Blues Bastardo + Persea",
+      "start": "2026-10-23T20:30",
+      "category": "music",
+      "venue": "Sala Humboldt (Niceto Club)",
+      "address": "Cnel. Niceto Vega 5510, Palermo Hollywood",
+      "barrio": "Palermo Hollywood",
+      "summary": "Band night: Preta Porter's first CABA show with Gitanos Blues Bastardo and Persea.",
+      "ticket_info": "Venti; doors 20:30",
+      "post_url": "https://www.instagram.com/p/DeQDIV_R4wZ/",
+      "account": "salahumboldt",
+      "score": 3
+    }
+  ],
+  "scan": {
+    "status": "running",
+    "accounts_done": 32,
+    "accounts_total": 64
+  }
+}

@@ -172,6 +172,7 @@ input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(168,85,247,.2)}
 .list .item button:hover{color:var(--red)}
 .pill{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);margin-left:6px}
 .row{display:flex;gap:8px;align-items:center}
+body.guest [data-tab=accounts]{display:none}
 
 /* settings */
 .narrow{max-width:640px}
@@ -233,7 +234,7 @@ code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px s
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Update".
-const APP_VERSION = '2026.10.11-9';
+const APP_VERSION = '2026.10.11-10';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 const CATS = { music: 'Music', theatre: 'Theatre', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Other' };
@@ -247,6 +248,9 @@ let filters = loadPref('filters', { cat: 'all', near: false, showHidden: false, 
 function loadPref(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } }
 function savePref(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 function token() { try { return localStorage.getItem('gh_token') || ''; } catch { return ''; } }
+// Without the owner's key the app is a read-only agenda for friends: it reads
+// the public copy (events.json next to this page), with no marks or accounts.
+function guest() { return !token(); }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
 // Events come from Instagram posts or from event sites (Alternativa Teatral, Meetup…).
@@ -291,8 +295,21 @@ async function updateFile(name, mutate, message) {
 }
 
 async function load() {
-  if (!token()) { setStatusText('Add your GitHub key in Settings.'); data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
   setStatusText('Loading…');
+  if (guest()) {
+    try {
+      const r = await fetch(`events.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error();
+      data = { events: await r.json(), accounts: null, state: null, config: null };
+      savePref('pubcache', data.events);
+      setStatus();
+    } catch {
+      data = { events: loadPref('pubcache', null), accounts: null, state: null, config: null };
+      setStatusText('Offline, showing the last data.');
+    }
+    render();
+    return;
+  }
   try {
     const [e, a, s, c] = await Promise.all(['events.json', 'accounts.json', 'state.json', 'config.json'].map(readFile));
     data = { events: e.json, accounts: a.json, state: s.json, config: c.json };
@@ -315,6 +332,7 @@ function setStatus() {
 
 // ---------- views ----------
 function setTab(t) {
+  if (guest() && t === 'accounts') t = 'week';
   tab = t;
   document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
   $('title').textContent = TITLES[t];
@@ -330,13 +348,9 @@ function render() {
   const visible = upcoming().filter(e => evState(e.id) !== 'hidden').length;
   document.querySelectorAll('[data-count=accounts]').forEach(el => { el.textContent = pending || ''; el.style.display = pending ? '' : 'none'; el.classList.toggle('hot', !!pending); });
   document.querySelectorAll('[data-count=week]').forEach(el => { el.textContent = visible || ''; el.style.display = visible ? '' : 'none'; });
+  document.body.classList.toggle('guest', guest());
+  if (guest() && tab === 'accounts') tab = 'week';
   ({ week: renderWeek, accounts: renderAccounts, settings: renderSettings })[tab]();
-  if (!token() && tab !== 'settings') {
-    $('view').insertAdjacentHTML('afterbegin', `<div class="update show" style="border-color:var(--amber);background:color-mix(in srgb,var(--amber) 10%,var(--surface))">
-      <span>No GitHub key in this window, so your accounts and events can't load. Each browser and each installed app needs its own.</span>
-      <button class="btn primary" id="goKey">Add the key</button></div>`);
-    $('goKey').onclick = () => setTab('settings');
-  }
 }
 
 function evState(id) { return data.state?.events?.[id] || ''; }
@@ -347,8 +361,8 @@ function renderWeek() {
   const all = upcoming();
   let evs = all;
   if (filters.cat !== 'all') evs = evs.filter(e => catOf(e) === filters.cat);
-  if (filters.near) evs = evs.filter(e => e.near);
-  if (filters.mine) evs = evs.filter(e => ['going', 'maybe'].includes(evState(e.id)));
+  if (filters.near && !guest()) evs = evs.filter(e => e.near);
+  if (filters.mine && !guest()) evs = evs.filter(e => ['going', 'maybe'].includes(evState(e.id)));
   const hiddenCount = evs.filter(e => evState(e.id) === 'hidden').length;
   if (!filters.showHidden) evs = evs.filter(e => evState(e.id) !== 'hidden');
   evs.sort((a, b) => a.start.localeCompare(b.start) || (b.score || 0) - (a.score || 0));
@@ -359,8 +373,8 @@ function renderWeek() {
   let html = `<div class="stats">
     ${stat('Events', shown.length, 'g')}
     ${stat('Top picks', shown.filter(e => (e.score || 0) >= 4).length, 'c-music')}
-    ${stat(nearLabel, shown.filter(e => e.near).length, 'c-near')}
-    ${stat('My plans', all.filter(e => ['going', 'maybe'].includes(evState(e.id))).length, 'c-mine')}
+    ${guest() ? '' : `${stat(nearLabel, shown.filter(e => e.near).length, 'c-near')}
+    ${stat('My plans', all.filter(e => ['going', 'maybe'].includes(evState(e.id))).length, 'c-mine')}`}
   </div>`;
 
   const chip = (val, label) => `<button class="chip c-${val === 'all' ? 'x' : val} ${filters.cat === val ? 'on' : ''}" data-f="cat" data-v="${val}">${val === 'all' ? '' : '<span class="dot"></span>'}${label}</button>`;
@@ -370,10 +384,10 @@ function renderWeek() {
     html = `<div class="progress"><div class="row" style="justify-content:space-between"><span><span class="pulse"></span>Scan in progress, new events appear as each batch is done</span><span class="mono small">${sc.accounts_done || 0}/${sc.accounts_total || '?'}</span></div><div class="bar"><i style="width:${pct}%"></i></div></div>` + html;
   }
   html += `<div class="filters">${chip('all', 'All')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip(k, v)).join('')}
-    <span class="sep"></span>${toggle('near', nearLabel, 'c-near')}${toggle('mine', 'My plans', 'c-mine')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Hidden (${hiddenCount})`, 'c-other') : ''}</div>`;
+    ${guest() ? '' : `<span class="sep"></span>${toggle('near', nearLabel, 'c-near')}${toggle('mine', 'My plans', 'c-mine')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Hidden (${hiddenCount})`, 'c-other') : ''}`}</div>`;
 
   if (!data.events) html += `<div class="empty">No data yet.</div>`;
-  else if (!data.events.generated_at) html += `<div class="empty">No scan yet. Start one in the Claude app: Routines › BA Radar › Run now.</div>`;
+  else if (!data.events.generated_at) html += `<div class="empty">${guest() ? 'No events yet. Come back after the next scan.' : 'No scan yet. Start one in the Claude app: Routines › BA Radar › Run now.'}</div>`;
   else if (!evs.length) html += `<div class="empty">Nothing matches these filters.</div>`;
 
   const byDay = {};
@@ -410,7 +424,7 @@ function evCard(e) {
       ${e.post_url ? `<a href="${esc(e.post_url)}" target="_blank" rel="noopener">${esc(sourceLabel(e))} ↗</a>` : ''}
       ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Tickets ↗</a>` : ''}
       <span class="more">Details ›</span>
-      <span class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</span>
+      ${guest() ? '' : `<span class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</span>`}
     </div>
   </article>`;
 }
@@ -481,14 +495,20 @@ async function addAccount() {
 
 function renderSettings() {
   const has = !!token();
+  const share = location.origin + location.pathname;
   $('view').innerHTML = `<div class="narrow">
-    <div class="section"><span class="caps">GitHub key</span>
+    ${has ? `<div class="section"><span class="caps">Share with friends</span>
+    <div class="panel small">Send them <a href="${esc(share)}" style="color:var(--blue)">${esc(share)}</a>. Without your key they see the events only: no Going, Maybe or Hide, no accounts, no settings of yours.</div></div>`
+    : `<div class="section"><span class="caps">About</span>
+    <div class="panel small">A weekly pick of Buenos Aires events, gathered from venues' Instagram accounts and event sites. Tap an event for details, tickets and links.</div></div>`}
+    <div class="section"><span class="caps">${has ? 'GitHub key' : 'Owner key'}</span>
     <div class="panel">
       <p class="small" style="margin-top:0">${has ? 'A key is saved on this device.' : 'The app reads your data from the private repo <code>' + REPO + '</code>. It needs a key, once per device.'}</p>
       <div class="row"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Save</button></div>
       ${has ? '<div class="row" style="margin-top:12px"><button class="btn grad" id="qrBtn">Send to phone</button><button class="btn" id="clearTok">Forget the key</button></div><div id="qr" style="display:none"></div>' : ''}
     </div></div>
-    <div class="section"><span class="caps">Create the key</span>
+    ${has ? '' : `<p class="small muted">Only for the owner of this radar. Friends don't need a key.</p>`}
+    ${!has ? '' : `    <div class="section"><span class="caps">Create the key</span>
     <div class="panel small"><ol>
       <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--blue)">github.com › New fine-grained token</a>.</li>
       <li>Name: <code>BA Radar</code>. Expiration: the longest offered.</li>
@@ -497,7 +517,7 @@ function renderSettings() {
       <li>Generate, copy, paste here. The key stays on this device only.</li>
     </ol></div></div>
     <div class="section"><span class="caps">Run a scan</span>
-    <div class="panel small">In the Claude app on the Mac: Code tab › Routines › "BA Radar : scan Instagram hebdo" › Run now. Chrome must be open with the Claude extension connected. Scans also run by themselves every Monday around 11am.</div></div>
+    <div class="panel small">In the Claude app on the Mac: Code tab › Routines › "BA Radar : scan Instagram hebdo" › Run now. Chrome must be open with the Claude extension connected. Scans also run by themselves every Monday around 11am.</div></div>`}
     <div class="section"><span class="caps">Install</span>
     <div class="panel small">Mac: in Chrome, menu ⋮ › Cast, save and share › Install page as app, or in Safari, File › Add to Dock. iPhone: Safari › Share › Add to Home Screen.</div></div>
     <p class="caps">Version ${APP_VERSION}</p></div>`;
@@ -508,7 +528,7 @@ function renderSettings() {
     toast('Key saved'); await load(); if (data.events) setTab('week');
   };
   if (has) $('qrBtn').onclick = showQr;
-  if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null, config: null }; render(); };
+  if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null, config: null }; load(); };
 }
 
 // Shows the key as a QR code so the phone camera can copy it: no typing,
@@ -581,7 +601,7 @@ function openEvent(id, push = true) {
       ${links.map(l => extLink(l.url, l.label || 'Link')).join('')}
       ${extLink(`https://www.google.com/search?q=${encodeURIComponent([e.title, e.venue, 'Buenos Aires'].filter(Boolean).join(' '))}`, 'Search the web')}
     </div></div>
-    <div class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</div>
+    ${guest() ? '' : `<div class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</div>`}
   </div></div>`;
   document.body.insertAdjacentHTML('beforeend', html);
   document.body.style.overflow = 'hidden';
@@ -627,7 +647,7 @@ let lastLoad = 0;
 const _load = load;
 load = async () => { lastLoad = Date.now(); await _load(); };
 setInterval(() => {
-  if (document.hidden || !token()) return;
+  if (document.hidden) return;
   if (Date.now() - lastLoad >= (scanning() ? 60e3 : 600e3)) load();
 }, 15e3);
 setInterval(checkUpdate, 15 * 60 * 1000);
