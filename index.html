@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BA Radar</title>
+<meta name="theme-color" content="#0f1115">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BA Radar">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+:root{
+  --bg:#0f1115;--card:#171a21;--card2:#1e222b;--line:#2a2f3a;--text:#eef0f4;--muted:#9aa3b2;
+  --accent:#ff6fae;--good:#3ecf8e;--meh:#f2b84b;--bad:#ef6b6b;--blue:#4ea8ff;--sun:#ffd45e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{padding:calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 84px)}
+main{max-width:640px;margin:0 auto}
+a{color:var(--blue);text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+h1{font-size:22px;margin:0}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;font-weight:600}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.card{background:var(--card);border-radius:16px;padding:14px;margin-bottom:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:7px 12px}
+.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:600}
+.btn.on{border-color:var(--accent);color:var(--accent)}
+input[type=text],input[type=password]{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
+
+.day h2{color:var(--text);text-transform:none;letter-spacing:0;font-size:16px}
+.day h2 span{color:var(--muted);font-weight:400;font-size:13px;margin-left:6px}
+.ev .head{display:grid;grid-template-columns:52px 1fr;gap:2px 12px}
+.ev .time{font-weight:700;font-size:15px;padding-top:1px}
+.ev .title{font-weight:600}
+.ev .where{font-size:13px;color:var(--muted)}
+.ev .sum{font-size:14px;margin-top:8px}
+.ev .why{font-size:13px;color:var(--muted);margin-top:4px}
+.ev .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:12px}
+.tag{border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700;color:#111}
+.t-music{background:var(--accent)}.t-tech{background:var(--blue)}.t-business{background:var(--sun)}
+.t-culture{background:#b69cff}.t-food{background:var(--good)}.t-other{background:var(--muted)}
+.near{color:var(--good)}
+.dots{letter-spacing:2px;color:var(--accent)}
+.ev .actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.ev.hidden-ev{opacity:.45}
+.ev.going{box-shadow:inset 3px 0 0 var(--good)}
+.ev.maybe{box-shadow:inset 3px 0 0 var(--meh)}
+
+.acc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.acc .h{font-weight:600}
+.acc .why{font-size:13px;color:var(--muted);grid-column:1 / -1}
+.acc .actions{display:flex;gap:6px}
+.list .item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:10px}
+.list .item:last-child{border-bottom:0}
+.pill{font-size:11px;color:var(--meh);border:1px solid var(--meh);border-radius:999px;padding:1px 7px;margin-left:6px}
+
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(15,17,21,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);
+  display:flex;justify-content:center;gap:4px;padding:8px 8px calc(env(safe-area-inset-bottom) + 8px)}
+nav button{background:none;border:0;padding:8px 16px;border-radius:10px;color:var(--muted);position:relative}
+nav button.on{color:var(--text);background:var(--card2)}
+nav .badge{position:absolute;top:2px;right:4px;background:var(--accent);color:#111;border-radius:999px;font-size:10px;font-weight:700;padding:0 5px}
+.empty{text-align:center;color:var(--muted);padding:32px 12px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 14px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1}
+.update{display:none;margin-bottom:10px}
+.update.show{display:block}
+ol{padding-left:20px}
+ol li{margin-bottom:6px}
+code{background:var(--card2);padding:1px 5px;border-radius:6px;font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <div class="card update" id="update"><div class="row" style="justify-content:space-between"><span>Nouvelle version disponible</span><button class="btn primary" id="updateBtn">Mettre à jour</button></div></div>
+  <div class="top">
+    <h1>BA Radar</h1>
+    <button class="btn small" id="reload">Actualiser</button>
+  </div>
+  <div class="muted small" id="status">Chargement…</div>
+  <section id="view"></section>
+</main>
+<nav>
+  <button data-tab="week" class="on">Semaine</button>
+  <button data-tab="accounts">Comptes</button>
+  <button data-tab="settings">Réglages</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+// Bump together with version.json on every release, so installed copies
+// see "Mettre à jour".
+const APP_VERSION = '2026.10.11-1';
+const REPO = 'alexadark/ba-radar-data';
+const API = `https://api.github.com/repos/${REPO}/contents/`;
+const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
+const $ = id => document.getElementById(id);
+
+let tab = 'week';
+let data = { events: null, accounts: null, state: null };
+let filters = loadPref('filters', { cat: 'all', near: false, showHidden: false, mine: false });
+
+function loadPref(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } }
+function savePref(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+function token() { try { return localStorage.getItem('gh_token') || ''; } catch { return ''; } }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
+
+// ---------- GitHub storage ----------
+function b64decode(b64) {
+  const bin = atob(b64.replace(/\n/g, ''));
+  return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
+}
+function b64encode(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+async function gh(path, opts = {}) {
+  const r = await fetch(API + path, {
+    ...opts,
+    cache: 'no-store',
+    headers: { Authorization: `Bearer ${token()}`, Accept: 'application/vnd.github+json', ...(opts.headers || {}) },
+  });
+  if (!r.ok) { const e = new Error(`GitHub ${r.status}`); e.status = r.status; throw e; }
+  return r.json();
+}
+async function readFile(name) {
+  const f = await gh(name);
+  return { json: JSON.parse(b64decode(f.content)), sha: f.sha };
+}
+// Read-modify-write with one retry when the scan pushed in between.
+async function updateFile(name, mutate, message) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const { json, sha } = await readFile(name);
+    mutate(json);
+    try {
+      await gh(name, { method: 'PUT', body: JSON.stringify({ message, sha, content: b64encode(JSON.stringify(json, null, 2) + '\n') }) });
+      return json;
+    } catch (e) { if (e.status !== 409 || attempt) throw e; }
+  }
+}
+
+async function load() {
+  if (!token()) { $('status').textContent = 'Connecte ta clé GitHub dans Réglages.'; data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
+  $('status').textContent = 'Chargement…';
+  try {
+    const [e, a, s] = await Promise.all(['events.json', 'accounts.json', 'state.json'].map(readFile));
+    data = { events: e.json, accounts: a.json, state: s.json };
+    savePref('cache', data);
+    setStatus();
+  } catch (err) {
+    data = loadPref('cache', data);
+    $('status').textContent = err.status === 401 || err.status === 404 ? 'Clé GitHub refusée. Vérifie-la dans Réglages.' : 'Hors ligne, dernières données affichées.';
+  }
+  render();
+}
+function setStatus() {
+  const g = data.events?.generated_at;
+  $('status').textContent = g ? `Dernier scan : ${new Date(g).toLocaleString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}` : 'Pas encore de scan.';
+}
+
+// ---------- views ----------
+function setTab(t) {
+  tab = t;
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  render();
+}
+function render() {
+  const pending = (data.accounts?.accounts || []).filter(a => a.status === 'suggested').length;
+  const accBtn = document.querySelector('nav [data-tab=accounts]');
+  accBtn.innerHTML = `Comptes${pending ? `<span class="badge">${pending}</span>` : ''}`;
+  ({ week: renderWeek, accounts: renderAccounts, settings: renderSettings })[tab]();
+}
+
+function evState(id) { return data.state?.events?.[id] || ''; }
+function dayKey(ev) { return (ev.start || '').slice(0, 10); }
+
+function renderWeek() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  let evs = (data.events?.events || []).filter(e => e.start && new Date(e.start.slice(0, 10) + 'T23:59') >= today);
+  if (filters.cat !== 'all') evs = evs.filter(e => (e.category || 'other') === filters.cat);
+  if (filters.near) evs = evs.filter(e => e.near);
+  if (filters.mine) evs = evs.filter(e => ['going', 'maybe'].includes(evState(e.id)));
+  const hiddenCount = evs.filter(e => evState(e.id) === 'hidden').length;
+  if (!filters.showHidden) evs = evs.filter(e => evState(e.id) !== 'hidden');
+  evs.sort((a, b) => a.start.localeCompare(b.start) || (b.score || 0) - (a.score || 0));
+
+  const chip = (key, val, label) => `<button class="chip ${filters[key] === val ? 'on' : ''}" data-f="${key}" data-v="${val}">${label}</button>`;
+  const toggle = (key, label) => `<button class="chip ${filters[key] ? 'on' : ''}" data-t="${key}">${label}</button>`;
+  let html = `<div class="chips" style="margin-top:14px">${chip('cat', 'all', 'Tout')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip('cat', k, v)).join('')}</div>
+    <div class="chips">${toggle('near', 'Près de Palermo')}${toggle('mine', 'Mes plans')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Masqués (${hiddenCount})`) : ''}</div>`;
+
+  if (!data.events) html += `<div class="empty">Aucune donnée pour l'instant.</div>`;
+  else if (!evs.length) html += `<div class="empty">Rien qui corresponde cette semaine.</div>`;
+
+  const byDay = {};
+  evs.forEach(e => (byDay[dayKey(e)] ||= []).push(e));
+  for (const [d, list] of Object.entries(byDay)) {
+    const date = new Date(d + 'T00:00');
+    const diff = Math.round((date - today) / 864e5);
+    const rel = diff === 0 ? "aujourd'hui" : diff === 1 ? 'demain' : '';
+    html += `<div class="day"><h2>${date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}<span>${rel}</span></h2>`;
+    html += list.map(evCard).join('') + `</div>`;
+  }
+  $('view').innerHTML = html;
+
+  $('view').querySelectorAll('[data-f]').forEach(b => b.onclick = () => { filters[b.dataset.f] = b.dataset.v; savePref('filters', filters); render(); });
+  $('view').querySelectorAll('[data-t]').forEach(b => b.onclick = () => { filters[b.dataset.t] = !filters[b.dataset.t]; savePref('filters', filters); render(); });
+  $('view').querySelectorAll('[data-mark]').forEach(b => b.onclick = () => markEvent(b.dataset.id, b.dataset.mark));
+}
+function evCard(e) {
+  const st = evState(e.id);
+  const time = e.start.length > 10 ? e.start.slice(11, 16) : '';
+  const cat = CATS[e.category] ? e.category : 'other';
+  const score = Math.max(0, Math.min(5, e.score || 0));
+  const btn = (mark, label) => `<button class="btn small ${st === mark ? 'on' : ''}" data-id="${esc(e.id)}" data-mark="${mark}">${label}</button>`;
+  return `<div class="card ev ${st === 'hidden' ? 'hidden-ev' : st}">
+    <div class="head"><div class="time">${time || '·'}</div>
+      <div><div class="title">${esc(e.title)}</div>
+      <div class="where">${esc([e.venue, e.barrio].filter(Boolean).join(' · '))}${e.near ? ' <span class="near">● près</span>' : ''}</div></div></div>
+    ${e.summary ? `<div class="sum">${esc(e.summary)}</div>` : ''}
+    ${e.why ? `<div class="why">${esc(e.why)}</div>` : ''}
+    <div class="meta"><span class="tag t-${cat}">${CATS[cat]}</span><span class="dots" title="Intérêt">${'●'.repeat(score)}<span class="muted">${'●'.repeat(5 - score)}</span></span>
+      ${e.price ? `<span class="muted">${esc(e.price)}</span>` : ''}
+      ${e.post_url ? `<a href="${esc(e.post_url)}" target="_blank" rel="noopener">@${esc(e.account || 'post')}</a>` : ''}
+      ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Billets</a>` : ''}</div>
+    <div class="actions">${btn('going', "J'y vais")}${btn('maybe', 'Peut-être')}${btn('hidden', 'Masquer')}</div>
+  </div>`;
+}
+async function markEvent(id, mark) {
+  const next = evState(id) === mark ? '' : mark;
+  data.state ||= { events: {} };
+  if (next) data.state.events[id] = next; else delete data.state.events[id];
+  savePref('cache', data); render();
+  try {
+    await updateFile('state.json', s => { s.events ||= {}; if (next) s.events[id] = next; else delete s.events[id]; }, `Mark event ${id}: ${next || 'clear'}`);
+  } catch { toast("Pas enregistré, vérifie ta connexion."); }
+}
+
+function renderAccounts() {
+  const accs = data.accounts?.accounts || [];
+  const by = s => accs.filter(a => a.status === s);
+  const sugg = by('suggested'), following = [...by('approved'), ...by('following')], ignored = by('ignored');
+  let html = `<h2>Suggestions (${sugg.length})</h2>`;
+  html += sugg.length ? sugg.map(a => `<div class="card acc">
+      <div><span class="h"><a href="https://www.instagram.com/${esc(a.handle)}/" target="_blank" rel="noopener">@${esc(a.handle)}</a></span>
+      <span class="muted small"> ${esc(a.name || '')}</span><br><span class="tag t-${CATS[a.category] ? a.category : 'other'}">${CATS[a.category] || 'Autre'}</span>
+      <span class="muted small">${esc(a.barrio || '')}</span></div>
+      <div class="actions"><button class="btn primary" data-acc="${esc(a.handle)}" data-s="approved">Suivre</button><button class="btn" data-acc="${esc(a.handle)}" data-s="ignored">Ignorer</button></div>
+      ${a.why ? `<div class="why">${esc(a.why)}</div>` : ''}</div>`).join('')
+    : `<div class="card muted small">Pas de suggestion en attente. Le scan en propose de nouvelles chaque semaine.</div>`;
+
+  html += `<h2>Ajouter un compte</h2><div class="card"><div class="row" style="flex-wrap:nowrap"><input type="text" id="newHandle" placeholder="@compte ou lien Instagram" autocapitalize="off" autocorrect="off"><button class="btn primary" id="addBtn">Ajouter</button></div></div>`;
+
+  html += `<h2>Suivis (${following.length})</h2><div class="card list">${following.length ? following.map(a => `<div class="item"><span><a href="https://www.instagram.com/${esc(a.handle)}/" target="_blank" rel="noopener">@${esc(a.handle)}</a>${a.status === 'approved' ? '<span class="pill">au prochain scan</span>' : ''}<br><span class="muted small">${esc(a.name || '')}</span></span><button class="btn small" data-acc="${esc(a.handle)}" data-s="ignored">Retirer</button></div>`).join('') : '<span class="muted small">Aucun compte suivi.</span>'}</div>`;
+
+  if (ignored.length) html += `<h2>Ignorés (${ignored.length})</h2><div class="card list">${ignored.map(a => `<div class="item"><span>@${esc(a.handle)}</span><button class="btn small" data-acc="${esc(a.handle)}" data-s="suggested">Restaurer</button></div>`).join('')}</div>`;
+  html += `<p class="muted small">« Retirer » arrête le scan de ce compte ; l'abonnement Instagram reste en place.</p>`;
+  $('view').innerHTML = html;
+
+  $('view').querySelectorAll('[data-acc]').forEach(b => b.onclick = () => setAccount(b.dataset.acc, b.dataset.s));
+  $('addBtn').onclick = addAccount;
+  $('newHandle').onkeydown = e => { if (e.key === 'Enter') addAccount(); };
+}
+function cleanHandle(s) {
+  s = s.trim().replace(/^@/, '');
+  const m = s.match(/instagram\.com\/([A-Za-z0-9._]+)/);
+  if (m) s = m[1];
+  return /^[A-Za-z0-9._]{1,30}$/.test(s) ? s.toLowerCase() : '';
+}
+async function setAccount(handle, status) {
+  const now = new Date().toISOString();
+  const apply = j => { const a = (j.accounts || []).find(x => x.handle === handle); if (a) { a.status = status; a.updated = now; } };
+  apply(data.accounts); savePref('cache', data); render();
+  try { await updateFile('accounts.json', apply, `@${handle}: ${status}`); toast(status === 'approved' ? 'Suivi au prochain scan' : 'Enregistré'); }
+  catch { toast("Pas enregistré, vérifie ta connexion."); }
+}
+async function addAccount() {
+  const handle = cleanHandle($('newHandle').value);
+  if (!handle) { toast('Compte invalide'); return; }
+  const now = new Date().toISOString();
+  const apply = j => {
+    j.accounts ||= [];
+    const a = j.accounts.find(x => x.handle === handle);
+    if (a) { a.status = a.status === 'following' ? 'following' : 'approved'; a.updated = now; }
+    else j.accounts.push({ handle, status: 'approved', source: 'added in app', added: now, updated: now });
+  };
+  apply(data.accounts); savePref('cache', data); render();
+  try { await updateFile('accounts.json', apply, `Add @${handle}`); toast(`@${handle} ajouté`); }
+  catch { toast("Pas enregistré, vérifie ta connexion."); }
+}
+
+function renderSettings() {
+  const has = !!token();
+  $('view').innerHTML = `<h2>Clé GitHub</h2>
+    <div class="card">
+      <p class="small" style="margin-top:0">${has ? 'Une clé est enregistrée sur cet appareil.' : "L'appli lit tes données dans le repo privé <code>" + REPO + "</code>. Il lui faut une clé, une fois par appareil."}</p>
+      <div class="row" style="flex-wrap:nowrap"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Enregistrer</button></div>
+      ${has ? '<p class="small"><button class="btn small" id="clearTok">Oublier la clé</button></p>' : ''}
+    </div>
+    <h2>Créer la clé</h2>
+    <div class="card small"><ol>
+      <li>Ouvre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com › New fine-grained token</a>.</li>
+      <li>Nom : <code>BA Radar</code>. Expiration : la plus longue proposée.</li>
+      <li>Repository access : <b>Only select repositories</b> › <code>ba-radar-data</code>.</li>
+      <li>Permissions › Repository › <b>Contents : Read and write</b>.</li>
+      <li>Génère, copie, colle ici. La clé reste sur cet appareil seulement.</li>
+    </ol></div>
+    <h2>Installer</h2>
+    <div class="card small">Mac : dans Chrome, menu ⋮ › « Caster, enregistrer et partager » › « Installer la page en tant qu'appli », ou dans Safari, Fichier › « Ajouter au Dock ». iPhone : Safari › Partager › « Sur l'écran d'accueil ».</div>
+    <p class="muted small">Version ${APP_VERSION}</p>`;
+  $('saveTok').onclick = async () => {
+    const v = $('tok').value.trim();
+    if (!v) return;
+    try { localStorage.setItem('gh_token', v); } catch {}
+    toast('Clé enregistrée'); await load(); if (data.events) setTab('week');
+  };
+  if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null }; render(); };
+}
+
+// ---------- boot ----------
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => setTab(b.dataset.tab));
+$('reload').onclick = load;
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { load(); checkUpdate(); } });
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+async function checkUpdate() {
+  try {
+    const r = await fetch(`version.json?t=${Date.now()}`, { cache: 'no-store' });
+    const { version } = await r.json();
+    if (version && version !== APP_VERSION) {
+      $('update').classList.add('show');
+      $('updateBtn').onclick = () => { location.replace(`./?v=${encodeURIComponent(version)}`); };
+    }
+  } catch {}
+}
+load();
+checkUpdate();
+</script>
+</body>
+</html>
