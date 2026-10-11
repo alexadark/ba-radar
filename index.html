@@ -101,14 +101,14 @@ code{background:var(--card2);padding:1px 5px;border-radius:6px;font-size:13px}
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Mettre à jour".
-const APP_VERSION = '2026.10.11-1';
+const APP_VERSION = '2026.10.11-2';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
 const $ = id => document.getElementById(id);
 
 let tab = 'week';
-let data = { events: null, accounts: null, state: null };
+let data = { events: null, accounts: null, state: null, config: null };
 let filters = loadPref('filters', { cat: 'all', near: false, showHidden: false, mine: false });
 
 function loadPref(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } }
@@ -157,8 +157,8 @@ async function load() {
   if (!token()) { $('status').textContent = 'Connecte ta clé GitHub dans Réglages.'; data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
   $('status').textContent = 'Chargement…';
   try {
-    const [e, a, s] = await Promise.all(['events.json', 'accounts.json', 'state.json'].map(readFile));
-    data = { events: e.json, accounts: a.json, state: s.json };
+    const [e, a, s, c] = await Promise.all(['events.json', 'accounts.json', 'state.json', 'config.json'].map(readFile));
+    data = { events: e.json, accounts: a.json, state: s.json, config: c.json };
     savePref('cache', data);
     setStatus();
   } catch (err) {
@@ -201,7 +201,7 @@ function renderWeek() {
   const chip = (key, val, label) => `<button class="chip ${filters[key] === val ? 'on' : ''}" data-f="${key}" data-v="${val}">${label}</button>`;
   const toggle = (key, label) => `<button class="chip ${filters[key] ? 'on' : ''}" data-t="${key}">${label}</button>`;
   let html = `<div class="chips" style="margin-top:14px">${chip('cat', 'all', 'Tout')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip('cat', k, v)).join('')}</div>
-    <div class="chips">${toggle('near', 'Près de Palermo')}${toggle('mine', 'Mes plans')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Masqués (${hiddenCount})`) : ''}</div>`;
+    <div class="chips">${toggle('near', data.config?.home ? `Près de ${esc(data.config.home)}` : 'Près de chez moi')}${toggle('mine', 'Mes plans')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Masqués (${hiddenCount})`) : ''}</div>`;
 
   if (!data.events) html += `<div class="empty">Aucune donnée pour l'instant.</div>`;
   else if (!evs.length) html += `<div class="empty">Rien qui corresponde cette semaine.</div>`;
@@ -328,7 +328,7 @@ function renderSettings() {
     try { localStorage.setItem('gh_token', v); } catch {}
     toast('Clé enregistrée'); await load(); if (data.events) setTab('week');
   };
-  if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null }; render(); };
+  if (has) $('clearTok').onclick = () => { try { localStorage.removeItem('gh_token'); localStorage.removeItem('cache'); } catch {} data = { events: null, accounts: null, state: null, config: null }; render(); };
 }
 
 // ---------- boot ----------

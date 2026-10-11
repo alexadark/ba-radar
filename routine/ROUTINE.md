@@ -1,6 +1,11 @@
 # BA Radar weekly scan
 
-You run unattended once a week for Alexandra. Goal: find the interesting events in Buenos Aires for the coming days on the Instagram accounts she follows, propose new accounts, and publish everything to the private data repository that her BA Radar app reads.
+You run unattended once a week for Alexandra. The run has two roles:
+
+- **You, the collector** (steps 0, 1, 2, 4, 5): mechanical work. Drive the browser, collect raw posts, merge files, commit. Do not judge events yourself.
+- **The judge** (step 3): a subagent you launch with the Agent tool, `model: "opus"`, `effort: "medium"`. It turns raw posts into scored events and account suggestions.
+
+Goal: find the interesting events in Buenos Aires for the coming days on the Instagram accounts she follows, propose new accounts, and publish everything to the private data repository that her BA Radar app reads.
 
 Work in English in files. Event titles stay in their original language; `summary` and `why` are written in French, short and concrete.
 
@@ -49,17 +54,31 @@ await new Promise(r => setTimeout(r, 2000));
    caption: document.querySelector('meta[property="og:description"]')?.content });
 ```
 
-   Stop for this account at the first non-pinned post older than `scan.lookback_days`, or after `scan.max_posts_per_account` posts. Skip posts whose `alt` clearly shows a giveaway or a non-event.
-3. When a caption has no clear date, time or place and the post is a flyer, take a screenshot of the post to read the flyer. Limit: 25 screenshots per run.
+   Stop for this account at the first non-pinned post older than `scan.lookback_days`, or after `scan.max_posts_per_account` posts. Keep every post you read, even if it looks irrelevant: the judge decides.
+3. Append one record per post to the raw file `.scan/raw-YYYY-MM-DD.json` in the data repository (a JSON array, folder ignored by Git):
+   `{"account": "<handle>", "post_url": "https://www.instagram.com/p/<code>/", "posted_at": "<time>", "pinned": true|false, "caption": "<og:description text>"}`
 4. Wait 3 to 6 seconds between pages. If Instagram shows "Try again later", a checkpoint or a login page, stop scanning and go to step 5 with what you have, plus `"last_error"`.
 
 Scan at most 60 accounts per run, starting with the ones not scanned for the longest time (keep `"last_scanned"` on each account in `accounts.json`).
 
-## 3. Extract events
+## 3. Judge (delegated)
 
-From each relevant post, extract every event happening between today and today + `scan.horizon_days`. A lineup post can give several events.
+Launch one subagent with the Agent tool: `model: "opus"`, `effort: "medium"`, `run_in_background: false`, description `Judge BA events`. Give it this prompt, with the real paths and today's date filled in:
 
-- Resolve relative dates ("este viernes", "sáb 18", "mañana") against the post date, in the America/Argentina/Buenos_Aires timezone. If the date stays ambiguous, skip the event.
+> You are the judge of the BA Radar weekly scan. Read the section "Judge rules" of /Users/webstantly/DEV/personal-projects/ba-radar/routine/ROUTINE.md and follow it. Inputs: the raw posts in `<raw file>`, and `config.json`, `accounts.json`, `events.json` in ~/DEV/personal-projects/ba-radar-data. Today is `<YYYY-MM-DD>`, timezone America/Argentina/Buenos_Aires. Write your output to `<data repo>/.scan/judged-YYYY-MM-DD.json` and reply with one line of counts.
+
+Wait for it, then check that the judged file exists and parses. If the subagent fails, retry once; if it fails again, record `"last_error": "judge failed"` and go to step 5 without new events.
+
+## Judge rules
+
+These rules are for the judge subagent only.
+
+Output file: `{"events": [...], "suggestions": [...]}`.
+
+**Events.** From each raw post, extract every event happening between today and today + `scan.horizon_days`. A lineup post can give several events.
+
+- Resolve relative dates ("este viernes", "sáb 18", "mañana") against `posted_at`, in the America/Argentina/Buenos_Aires timezone. If the date stays ambiguous, skip the event.
+- When a caption has no clear date, time or place but the post looks like an event flyer, open `post_url` with Claude in Chrome (load `mcp__claude-in-chrome__*` with ToolSearch, open your own tab, close it after) and take a screenshot to read the flyer. Limit: 25 screenshots. Browse only; never click Follow, like or comment.
 - Ignore: past events, giveaways, promos and discounts without an event, recurring "open every day" opening hours, kids events.
 - Event object:
 
@@ -86,17 +105,17 @@ From each relevant post, extract every event happening between today and today +
 - `start`: use `YYYY-MM-DD` alone when the time is unknown.
 - `near`: true when the barrio is in `config.nearby`.
 - `score` from 1 to 5, following `config.taste` and `config.music_taste`: 5 = rare and right in her taste (good rock, indie or world artist; founder or AI event with substance; strong exhibition opening), 3 = decent, 1 = weak. Add 1 when it is near Palermo, without going above 5. Drop events scored 1.
-- Deduplicate: the same event posted by the venue and an artist keeps one entry, with the venue's post.
+- Deduplicate: the same event posted by the venue and an artist keeps one entry, with the venue's post. Reuse the `id` of a matching event already in `events.json`.
 
-## 4. Suggest new accounts
+**Suggestions.** From captions, note accounts that are mentioned (`@handle`) or co-authors and look like Buenos Aires venues, promoters, collectives, communities or organisers matching her interests. Ignore individuals' personal accounts, brands and sponsors. At most `scan.max_new_suggestions`, never a handle already in `accounts.json` whatever its status. Object: `{"handle", "name", "category", "barrio", "why" (one French sentence), "source": "mentioned by @<handle>"}`.
 
-While reading posts, note accounts that are tagged, co-authors or mentioned (`@handle`) and look like Buenos Aires venues, promoters, collectives, communities or organisers matching her interests. Ignore personal accounts of individuals, brands and sponsors.
+## 4. Merge suggestions
 
-Add at most `scan.max_new_suggestions` per run to `accounts.json` with `"status": "suggested"`, `"source": "mentioned by @<handle>"`, a `category`, a `barrio` if known, and a French `why` of one sentence. Never re-add a handle already present, whatever its status.
+Add each judged suggestion to `accounts.json` with `"status": "suggested"` and `added`/`updated` set to now, skipping any handle already present.
 
 ## 5. Write and publish
 
-- `events.json`: keep existing events whose date is still today or later, update the ones you found again (same `id`), add the new ones. Sort by `start`. Set `"generated_at"` to now (ISO with offset) and remove `"last_error"` when the run succeeded. Add `"stats": {"accounts_scanned": n, "posts_read": n, "events": n, "new_suggestions": n}`.
+- `events.json`: keep existing events whose date is still today or later, replace those with the same `id` by the judged version, add the new judged ones. Sort by `start`. Set `"generated_at"` to now (ISO with offset) and remove `"last_error"` when the run succeeded. Add `"stats": {"accounts_scanned": n, "posts_read": n, "events": n, "new_suggestions": n}`.
 - Never modify `state.json` (it belongs to the app) except to drop ids of events that no longer exist in `events.json`.
 - Validate both JSON files with `python3 -m json.tool`, then commit only `events.json` and `accounts.json` with the message `Weekly scan YYYY-MM-DD`, and push. If the push is rejected, `git pull --rebase` and push again.
 - Close the tab you opened.
