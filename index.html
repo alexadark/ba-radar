@@ -19,7 +19,7 @@
 :root{
   --bg:#09090b;--bg2:#0e0e11;--surface:#131316;--surface2:#1a1a1f;--line:#232329;--line2:#2e2e36;
   --fg:#ededf0;--muted:#8a8f98;--dim:#5b5f68;
-  --pink:#ff3d8b;--blue:#3d8bff;--cyan:#22d3ee;--amber:#ffb224;--violet:#a855f7;--lime:#a3e635;--green:#3dd68c;--red:#ff4d4f;
+  --pink:#ff3d8b;--blue:#3d8bff;--cyan:#22d3ee;--amber:#ffb224;--violet:#a855f7;--lime:#a3e635;--orange:#ff7a45;--green:#3dd68c;--red:#ff4d4f;
   --grad:linear-gradient(90deg,#ff3d8b 0%,#a855f7 50%,#3d8bff 100%);
   --font:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
@@ -81,7 +81,7 @@ input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(168,85,247,.2)}
 
 /* categories */
 .c-music{--c:var(--pink)}.c-tech{--c:var(--blue)}.c-business{--c:var(--amber)}
-.c-culture{--c:var(--violet)}.c-food{--c:var(--lime)}.c-other{--c:var(--muted)}.c-near{--c:var(--green)}.c-mine{--c:var(--cyan)}
+.c-culture{--c:var(--violet)}.c-theatre{--c:var(--orange)}.c-food{--c:var(--lime)}.c-other{--c:var(--muted)}.c-near{--c:var(--green)}.c-mine{--c:var(--cyan)}
 
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:22px}
@@ -126,6 +126,35 @@ input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(168,85,247,.2)}
 .ev .acts button.on[data-mark=hidden]{color:var(--fg);background:var(--surface2)}
 .ev.going{border-color:color-mix(in srgb,var(--green) 50%,var(--line))}
 .ev.hidden-ev{opacity:.4}
+.ev{cursor:pointer}
+.ev .more{font-size:12.5px;color:var(--muted)}
+
+/* event detail */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{position:relative;width:100%;max-width:640px;max-height:92vh;overflow-y:auto;background:var(--bg2);border:1px solid var(--line2);border-bottom:0;border-radius:16px 16px 0 0;padding:20px 18px calc(env(safe-area-inset-bottom) + 24px)}
+.sheet::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:var(--c);border-radius:16px 16px 0 0}
+@media (min-width:700px){.sheet-bg{align-items:center}.sheet{border-radius:16px;border-bottom:1px solid var(--line2);padding:26px 28px 28px}}
+.sheet .close{position:absolute;right:12px;top:12px;width:32px;height:32px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);font-size:18px;line-height:1;color:var(--muted)}
+.sheet h2{margin:8px 40px 4px 0;font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.sheet .when{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--fg)}
+.sheet .block{margin-top:18px}
+.sheet .block > .caps{display:block;margin-bottom:8px}
+.sheet p{margin:0 0 8px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.facts dt{color:var(--muted);font-size:13px}
+.facts dd{margin:0}
+.facts a,.sheet .lnk{color:var(--blue)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.artist{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.artist .n{font-weight:600}
+.artist .btns{margin-top:10px}
+.yt{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:10px;overflow:hidden;background:#000 center/cover no-repeat;margin-top:10px;padding:0}
+.yt::after{content:"▶";position:absolute;inset:0;margin:auto;width:58px;height:40px;border-radius:10px;background:rgba(255,0,0,.88);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center}
+.yt iframe{width:100%;height:100%;border:0}
+.sheet .acts{display:flex;gap:6px;margin-top:20px}
+.sheet .acts button{flex:1}
+.sheet .acts button.on[data-mark=going]{color:#09090b;background:var(--green);border-color:var(--green)}
+.sheet .acts button.on[data-mark=maybe]{color:#09090b;background:var(--amber);border-color:var(--amber)}
 
 /* accounts */
 .section{margin-bottom:30px}
@@ -204,10 +233,10 @@ code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px s
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Update".
-const APP_VERSION = '2026.10.11-7';
+const APP_VERSION = '2026.10.11-8';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
-const CATS = { music: 'Music', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Other' };
+const CATS = { music: 'Music', theatre: 'Theatre', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Other' };
 const TITLES = { week: 'This week', accounts: 'Accounts', settings: 'Settings' };
 const $ = id => document.getElementById(id);
 
@@ -359,6 +388,7 @@ function renderWeek() {
   $('view').querySelectorAll('[data-f]').forEach(b => b.onclick = () => { filters[b.dataset.f] = b.dataset.v; savePref('filters', filters); render(); });
   $('view').querySelectorAll('[data-t]').forEach(b => b.onclick = () => { filters[b.dataset.t] = !filters[b.dataset.t]; savePref('filters', filters); render(); });
   $('view').querySelectorAll('[data-mark]').forEach(b => b.onclick = () => markEvent(b.dataset.id, b.dataset.mark));
+  $('view').querySelectorAll('[data-open]').forEach(c => c.onclick = ev => { if (!ev.target.closest('a,button')) openEvent(c.dataset.open); });
 }
 function evCard(e) {
   const st = evState(e.id);
@@ -366,7 +396,7 @@ function evCard(e) {
   const cat = catOf(e);
   const score = Math.max(0, Math.min(5, e.score || 0));
   const btn = (mark, label) => `<button class="${st === mark ? 'on' : ''}" data-id="${esc(e.id)}" data-mark="${mark}">${label}</button>`;
-  return `<article class="ev c-${cat} ${st === 'hidden' ? 'hidden-ev' : st}">
+  return `<article class="ev c-${cat} ${st === 'hidden' ? 'hidden-ev' : st}" data-open="${esc(e.id)}">
     <div class="top"><span class="time">${time || '—'}</span><span class="tag">${CATS[cat]}</span>${score >= 5 ? '<span class="top-pick">TOP</span>' : ''}
       <span class="score" title="Interest ${score}/5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= score ? 'on' : ''}"></i>`).join('')}</span></div>
     <h3>${esc(e.title)}</h3>
@@ -377,6 +407,7 @@ function evCard(e) {
       ${e.price ? `<span class="mono muted">${esc(e.price)}</span>` : ''}
       ${e.post_url ? `<a href="${esc(e.post_url)}" target="_blank" rel="noopener">@${esc(e.account || 'post')} ↗</a>` : ''}
       ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Tickets ↗</a>` : ''}
+      <span class="more">Details ›</span>
       <span class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</span>
     </div>
   </article>`;
@@ -495,6 +526,83 @@ async function showQr() {
   } catch { toast('QR code unavailable offline'); }
 }
 
+// ---------- event detail ----------
+function ytId(url) {
+  const m = String(url || '').match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : '';
+}
+function safeUrl(u) { return /^https?:\/\//i.test(u || '') ? u : ''; }
+function extLink(url, label, cls = 'btn') { return safeUrl(url) ? `<a class="${cls}" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>` : ''; }
+function ytEmbed(url) {
+  const id = ytId(url);
+  return id ? `<button class="yt" data-yt="${id}" style="background-image:url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')" aria-label="Play video"></button>` : '';
+}
+function artistBlock(a, cat) {
+  const q = encodeURIComponent(a.name + (cat === 'music' ? '' : ' teatro'));
+  const yt = safeUrl(a.youtube);
+  return `<div class="artist"><div class="n">${esc(a.name)}</div>${a.about ? `<div class="small muted">${esc(a.about)}</div>` : ''}
+    ${yt && ytId(yt) ? ytEmbed(yt) : ''}
+    <div class="btns">${yt ? extLink(yt, 'YouTube') : extLink(`https://www.youtube.com/results?search_query=${q}`, 'Search YouTube')}
+      ${cat === 'music' ? (safeUrl(a.spotify) ? extLink(a.spotify, 'Spotify') : extLink(`https://open.spotify.com/search/${encodeURIComponent(a.name)}`, 'Search Spotify')) : ''}</div></div>`;
+}
+function openEvent(id, push = true) {
+  const e = upcoming().find(x => x.id === id) || (data.events?.events || []).find(x => x.id === id);
+  if (!e) return;
+  closeEvent(false);
+  if (push) history.pushState({ ev: id }, '', `#event=${encodeURIComponent(id)}`);
+  const cat = catOf(e), st = evState(e.id);
+  const d = new Date(e.start.slice(0, 10) + 'T00:00');
+  const when = d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) + (e.start.length > 10 ? ` · ${e.start.slice(11, 16)}` : '');
+  const place = [e.venue, e.address, e.barrio].filter(Boolean).join(', ');
+  const maps = place ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place + ', Buenos Aires')}` : '';
+  const artists = Array.isArray(e.artists) && e.artists.length ? e.artists
+    : cat === 'music' ? [{ name: e.title }] : [];
+  const links = (Array.isArray(e.links) ? e.links : []).filter(l => safeUrl(l.url));
+  const btn = (mark, label) => `<button class="btn ${st === mark ? 'on' : ''}" data-id="${esc(e.id)}" data-mark="${mark}">${label}</button>`;
+  const fact = (k, v) => v ? `<dt>${k}</dt><dd>${v}</dd>` : '';
+  const html = `<div class="sheet-bg" id="sheetBg"><div class="sheet c-${cat}" role="dialog" aria-modal="true" aria-label="${esc(e.title)}">
+    <button class="close" id="sheetClose" aria-label="Close">×</button>
+    <div class="row"><span class="tag">${CATS[cat]}</span>${(e.score || 0) >= 5 ? '<span class="top-pick">TOP</span>' : ''}${e.near ? '<span class="near small">near</span>' : ''}</div>
+    <h2>${esc(e.title)}</h2>
+    <div class="when">${esc(when)}</div>
+    ${e.summary ? `<div class="block"><p>${esc(e.summary)}</p>${e.details ? `<p class="muted">${esc(e.details)}</p>` : ''}${e.why ? `<p class="small muted">${esc(e.why)}</p>` : ''}</div>` : ''}
+    <div class="block"><span class="caps">Practical</span><dl class="facts">
+      ${fact('Where', `${esc(e.venue || '')}${e.address ? `<br><span class="muted">${esc(e.address)}${e.barrio ? ', ' + esc(e.barrio) : ''}</span>` : e.barrio ? ` <span class="muted">· ${esc(e.barrio)}</span>` : ''}${maps ? `<br><a href="${esc(maps)}" target="_blank" rel="noopener">Open in Maps ↗</a>` : ''}`)}
+      ${fact('When', esc(e.schedule || ''))}
+      ${fact('Price', esc(e.price || ''))}
+      ${fact('Tickets', `${esc(e.ticket_info || '')}${safeUrl(e.ticket_url) ? `${e.ticket_info ? '<br>' : ''}<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Buy tickets ↗</a>` : ''}` || '')}
+      ${!e.ticket_url && !e.ticket_info ? fact('Tickets', '<span class="muted">No sales page found, check the post.</span>') : ''}
+    </dl></div>
+    ${artists.length ? `<div class="block"><span class="caps">${cat === 'music' ? 'Listen' : 'Who'}</span>${artists.map(a => artistBlock(a, cat)).join('')}</div>` : ''}
+    <div class="block"><span class="caps">Links</span><div class="btns">
+      ${extLink(e.post_url, `Instagram @${e.account || 'post'}`)}
+      ${links.map(l => extLink(l.url, l.label || 'Link')).join('')}
+      ${extLink(`https://www.google.com/search?q=${encodeURIComponent([e.title, e.venue, 'Buenos Aires'].filter(Boolean).join(' '))}`, 'Search the web')}
+    </div></div>
+    <div class="acts">${btn('going', 'Going')}${btn('maybe', 'Maybe')}${btn('hidden', 'Hide')}</div>
+  </div></div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+  document.body.style.overflow = 'hidden';
+  $('sheetBg').onclick = ev => { if (ev.target.id === 'sheetBg') closeEvent(); };
+  $('sheetClose').onclick = () => closeEvent();
+  $('sheetBg').querySelectorAll('[data-yt]').forEach(b => b.onclick = () => {
+    b.outerHTML = `<div class="yt" style="padding:0"><iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Video"></iframe></div>`;
+  });
+  $('sheetBg').querySelectorAll('[data-mark]').forEach(b => b.onclick = async () => { await markEvent(b.dataset.id, b.dataset.mark); openEvent(e.id, false); });
+}
+function closeEvent(back = true) {
+  const bg = $('sheetBg');
+  if (!bg) return;
+  bg.remove();
+  document.body.style.overflow = '';
+  if (back && location.hash.startsWith('#event=')) history.back();
+}
+window.addEventListener('popstate', () => {
+  const m = location.hash.match(/^#event=(.+)$/);
+  if (m) openEvent(decodeURIComponent(m[1]), false); else closeEvent(false);
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeEvent(); });
+
 // ---------- boot ----------
 document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => setTab(b.dataset.tab));
 $('reload').onclick = load;
@@ -521,7 +629,10 @@ setInterval(() => {
   if (Date.now() - lastLoad >= (scanning() ? 60e3 : 600e3)) load();
 }, 15e3);
 setInterval(checkUpdate, 15 * 60 * 1000);
-load();
+load().then(() => {
+  const m = location.hash.match(/^#event=(.+)$/);
+  if (m) openEvent(decodeURIComponent(m[1]), false);
+});
 checkUpdate();
 </script>
 </body>
