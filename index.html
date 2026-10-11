@@ -101,7 +101,7 @@ code{background:var(--card2);padding:1px 5px;border-radius:6px;font-size:13px}
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Mettre à jour".
-const APP_VERSION = '2026.10.11-3';
+const APP_VERSION = '2026.10.11-4';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
@@ -365,6 +365,8 @@ async function checkUpdate() {
     }
   } catch {}
 }
+window.addEventListener('focus', checkUpdate);
+setInterval(checkUpdate, 15 * 60 * 1000);
 load();
 checkUpdate();
 </script>
