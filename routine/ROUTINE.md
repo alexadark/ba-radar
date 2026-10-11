@@ -28,26 +28,32 @@ Alexandra approved each of these accounts in the app, which is her consent to fo
 
 Accounts to scan: status `following` (and the ones you just followed).
 
-Preferred method, one request per account, from a tab on `https://www.instagram.com/`:
+Browse like a person, page by page. Do not call Instagram's internal `/api/v1/` endpoints: they answer 429 and draw attention to the account.
+
+For each account:
+
+1. Navigate to `https://www.instagram.com/<handle>/`, then run with `javascript_tool`:
 
 ```js
-const r = await fetch('/api/v1/users/web_profile_info/?username=HANDLE', { headers: { 'x-ig-app-id': '936619743392459' } });
-const u = (await r.json()).data.user;
-u.edge_owner_to_timeline_media.edges.map(e => ({
-  code: e.node.shortcode,
-  taken_at: new Date(e.node.taken_at_timestamp * 1000).toISOString(),
-  caption: e.node.edge_media_to_caption.edges[0]?.node.text || '',
-  is_pinned: (e.node.pinned_for_users || []).length > 0,
-  image: e.node.display_url,
-  tagged: (e.node.edge_media_to_tagged_user?.edges || []).map(t => t.node.user.username),
-  coauthors: (e.node.coauthor_producers || []).map(c => c.username),
-}));
+await new Promise(r => setTimeout(r, 2500));
+[...document.querySelectorAll('a[href*="/p/"], a[href*="/reel/"]')]
+  .map(a => ({ href: a.getAttribute('href'), alt: a.querySelector('img')?.alt || '' }));
 ```
 
-- Keep posts published within `scan.lookback_days`, plus pinned posts (often the month's lineup). At most `scan.max_posts_per_account` per account.
-- Wait 3 to 6 seconds between accounts. If a request returns 401, 429 or HTML, wait 60 seconds once, then switch to the fallback for the rest of the run.
-- Fallback: open the profile page, open each recent post, read its text with `get_page_text`.
-- When a caption has no clear date, time or place and the post is a flyer, open the post `https://www.instagram.com/p/<code>/` and take a screenshot to read the flyer. Limit: 25 screenshots per run.
+   The grid lists the newest posts first, after up to 3 pinned posts. `alt` often holds the start of the caption.
+2. Open the posts in grid order (`https://www.instagram.com/p/<code>/`, keep the code from the href) and read each one:
+
+```js
+await new Promise(r => setTimeout(r, 2000));
+({ time: document.querySelector('article time, main time')?.getAttribute('datetime'),
+   caption: document.querySelector('meta[property="og:description"]')?.content });
+```
+
+   Stop for this account at the first non-pinned post older than `scan.lookback_days`, or after `scan.max_posts_per_account` posts. Skip posts whose `alt` clearly shows a giveaway or a non-event.
+3. When a caption has no clear date, time or place and the post is a flyer, take a screenshot of the post to read the flyer. Limit: 25 screenshots per run.
+4. Wait 3 to 6 seconds between pages. If Instagram shows "Try again later", a checkpoint or a login page, stop scanning and go to step 5 with what you have, plus `"last_error"`.
+
+Scan at most 60 accounts per run, starting with the ones not scanned for the longest time (keep `"last_scanned"` on each account in `accounts.json`).
 
 ## 3. Extract events
 
