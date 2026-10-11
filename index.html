@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BA Radar</title>
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#09090b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,88 +12,186 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
-  --bg:#0f1115;--card:#171a21;--card2:#1e222b;--line:#2a2f3a;--text:#eef0f4;--muted:#9aa3b2;
-  --accent:#ff6fae;--good:#3ecf8e;--meh:#f2b84b;--bad:#ef6b6b;--blue:#4ea8ff;--sun:#ffd45e;
+  --bg:#09090b;--bg2:#0e0e11;--surface:#131316;--surface2:#1a1a1f;--line:#232329;--line2:#2e2e36;
+  --fg:#ededf0;--muted:#8a8f98;--dim:#5b5f68;
+  --pink:#ff3d8b;--blue:#3d8bff;--cyan:#22d3ee;--amber:#ffb224;--violet:#a855f7;--lime:#a3e635;--green:#3dd68c;--red:#ff4d4f;
+  --grad:linear-gradient(90deg,#ff3d8b 0%,#a855f7 50%,#3d8bff 100%);
+  --font:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{padding:calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 84px)}
-main{max-width:640px;margin:0 auto}
-a{color:var(--blue);text-decoration:none}
+html,body{margin:0;background:var(--bg);}
+body{background:radial-gradient(900px 380px at 20% -120px,rgba(168,85,247,.16),transparent 70%),radial-gradient(700px 320px at 85% -140px,rgba(255,61,139,.12),transparent 70%),var(--bg);background-attachment:fixed;}
+html,body{color:var(--fg);font:15px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--fg);text-decoration:none}
+a:hover{color:#fff}
 button{font:inherit;color:inherit;cursor:pointer}
-h1{font-size:22px;margin:0}
-h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;font-weight:600}
+.mono{font-family:var(--mono)}
+.caps{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .muted{color:var(--muted)}
-.small{font-size:12px}
-.top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.card{background:var(--card);border-radius:16px;padding:14px;margin-bottom:8px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;white-space:nowrap}
-.chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
-.btn{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:7px 12px}
-.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:600}
-.btn.on{border-color:var(--accent);color:var(--accent)}
-input[type=text],input[type=password]{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
+.small{font-size:13px}
 
-.day h2{color:var(--text);text-transform:none;letter-spacing:0;font-size:16px}
-.day h2 span{color:var(--muted);font-weight:400;font-size:13px;margin-left:6px}
-.ev .head{display:grid;grid-template-columns:52px 1fr;gap:2px 12px}
-.ev .time{font-weight:700;font-size:15px;padding-top:1px}
-.ev .title{font-weight:600}
+/* layout */
+.app{min-height:100vh}
+.side{display:none}
+main{padding:calc(env(safe-area-inset-top) + 16px) 16px calc(env(safe-area-inset-bottom) + 96px);max-width:1240px;margin:0 auto}
+.pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.pagehead h1{font-size:28px;font-weight:700;letter-spacing:-.03em;margin:4px 0 0}
+.brand-m{display:flex;align-items:center;gap:8px}
+.logo{width:22px;height:22px;border-radius:6px;background:var(--grad);box-shadow:0 0 18px rgba(168,85,247,.45)}
+#status,#status2{font-size:13px;color:var(--muted)}
+
+@media (min-width:900px){
+  .app{display:grid;grid-template-columns:248px 1fr}
+  .side{display:flex;flex-direction:column;gap:22px;position:sticky;top:0;height:100vh;padding:22px 14px;border-right:1px solid var(--line);background:var(--bg2)}
+  .side .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-.01em;padding:0 8px}
+  .side nav{display:flex;flex-direction:column;gap:2px}
+  .side nav button{display:flex;align-items:center;justify-content:space-between;background:none;border:0;border-radius:8px;padding:8px 10px;color:var(--muted);text-align:left}
+  .side nav button:hover{background:var(--surface);color:var(--fg)}
+  .side nav button.on{background:var(--surface2);color:var(--fg)}
+  .side .foot{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding:0 8px}
+  main{padding:36px 40px 64px;margin:0;max-width:1480px;width:100%}
+  .pagehead .brand-m,.pagehead #reload,#status{display:none}
+  .bottom{display:none!important}
+}
+
+/* controls */
+.btn{border:1px solid var(--line2);background:var(--surface);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:500;transition:border-color .15s,background .15s}
+.btn:hover{border-color:#44444d;background:var(--surface2)}
+.btn.primary{background:var(--fg);color:#09090b;border-color:var(--fg);font-weight:600}
+.btn.primary:hover{background:#fff}
+.btn.grad{background:var(--grad);border:0;color:#fff;font-weight:600}
+.count{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:0 7px}
+.count.hot{background:var(--pink);border-color:var(--pink);color:#fff}
+input[type=text],input[type=password]{width:100%;padding:9px 12px;border-radius:8px;border:1px solid var(--line2);background:var(--bg2);color:var(--fg);font:inherit;font-size:14px;outline:none}
+input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(168,85,247,.2)}
+
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--muted);transition:all .15s}
+.chip:hover{color:var(--fg);border-color:var(--line2)}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--c,var(--muted))}
+.chip.on{color:var(--fg);border-color:var(--c,var(--fg));background:color-mix(in srgb,var(--c,#fff) 14%,transparent)}
+.sep{width:1px;background:var(--line);margin:2px 4px}
+
+/* categories */
+.c-music{--c:var(--pink)}.c-tech{--c:var(--blue)}.c-business{--c:var(--amber)}
+.c-culture{--c:var(--violet)}.c-food{--c:var(--lime)}.c-other{--c:var(--muted)}.c-near{--c:var(--green)}.c-mine{--c:var(--cyan)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:22px}
+@media (min-width:900px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
+.stat .n{font-size:28px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:6px}
+.stat::after{content:"";position:absolute;left:0;top:0;right:0;height:2px;background:var(--c,var(--grad))}
+.stat.g::after{background:var(--grad)}
+
+/* days and events */
+.day{margin-bottom:30px}
+.dayhead{display:flex;align-items:baseline;gap:10px;padding:8px 0 12px;position:sticky;top:0;background:linear-gradient(var(--bg) 70%,transparent);z-index:2}
+.dayhead h2{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em}
+.dayhead h2::first-letter{text-transform:uppercase}
+.rel{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#09090b;background:var(--cyan);padding:1px 7px;border-radius:4px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:700px){.grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}}
+
+.ev{position:relative;display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:16px;transition:border-color .15s,transform .15s,box-shadow .15s;overflow:hidden}
+.ev::before{content:"";position:absolute;left:0;top:0;right:0;height:2px;background:var(--c)}
+.ev:hover{border-color:color-mix(in srgb,var(--c) 45%,var(--line));transform:translateY(-1px);box-shadow:0 8px 30px -12px color-mix(in srgb,var(--c) 40%,transparent)}
+.ev .top{display:flex;align-items:center;gap:8px}
+.ev .time{font-family:var(--mono);font-size:13px;font-weight:600}
+.tag{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);border-radius:4px;padding:2px 7px}
+.top-pick{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--grad);border-radius:4px;padding:2px 7px}
+.score{margin-left:auto;display:flex;gap:3px}
+.score i{width:6px;height:6px;border-radius:50%;background:var(--line2)}
+.score i.on{background:var(--c)}
+.ev h3{margin:0;font-size:16px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
 .ev .where{font-size:13px;color:var(--muted)}
-.ev .sum{font-size:14px;margin-top:8px}
-.ev .why{font-size:13px;color:var(--muted);margin-top:4px}
-.ev .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:12px}
-.tag{border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700;color:#111}
-.t-music{background:var(--accent)}.t-tech{background:var(--blue)}.t-business{background:var(--sun)}
-.t-culture{background:#b69cff}.t-food{background:var(--good)}.t-other{background:var(--muted)}
-.near{color:var(--good)}
-.dots{letter-spacing:2px;color:var(--accent)}
-.ev .actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.ev.hidden-ev{opacity:.45}
-.ev.going{box-shadow:inset 3px 0 0 var(--good)}
-.ev.maybe{box-shadow:inset 3px 0 0 var(--meh)}
+.near{color:var(--green);font-weight:500}
+.ev .sum{font-size:14px;margin:0}
+.ev .why{font-size:13px;color:var(--muted);margin:0}
+.ev .foot{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:8px;border-top:1px solid var(--line);font-size:12.5px;flex-wrap:wrap}
+.ev .foot a{color:var(--muted)}
+.ev .foot a:hover{color:var(--fg)}
+.ev .acts{margin-left:auto;display:flex;gap:4px}
+.ev .acts button{border:1px solid var(--line);background:transparent;border-radius:6px;padding:4px 9px;font-size:12px;color:var(--muted)}
+.ev .acts button:hover{color:var(--fg);border-color:var(--line2)}
+.ev .acts button.on[data-mark=going]{color:#09090b;background:var(--green);border-color:var(--green)}
+.ev .acts button.on[data-mark=maybe]{color:#09090b;background:var(--amber);border-color:var(--amber)}
+.ev .acts button.on[data-mark=hidden]{color:var(--fg);background:var(--surface2)}
+.ev.going{border-color:color-mix(in srgb,var(--green) 50%,var(--line))}
+.ev.hidden-ev{opacity:.4}
 
-.acc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+/* accounts */
+.section{margin-bottom:30px}
+.section > .caps{display:block;margin-bottom:12px}
+.acc{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
+.acc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--c)}
 .acc .h{font-weight:600}
-.acc .why{font-size:13px;color:var(--muted);grid-column:1 / -1}
-.acc .actions{display:flex;gap:6px}
-.list .item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);gap:10px}
-.list .item:last-child{border-bottom:0}
-.pill{font-size:11px;color:var(--meh);border:1px solid var(--meh);border-radius:999px;padding:1px 7px;margin-left:6px}
+.acc .acts{display:flex;gap:6px;margin-top:4px}
+.panel{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:16px}
+.list{display:grid;grid-template-columns:1fr;gap:0 24px}
+@media (min-width:900px){.list{grid-template-columns:repeat(3,1fr)}}
+.list .item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.list .item .d{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--c);margin-right:8px}
+.list .item button{background:none;border:0;color:var(--dim);font-size:12px}
+.list .item button:hover{color:var(--red)}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);margin-left:6px}
+.row{display:flex;gap:8px;align-items:center}
 
-nav{position:fixed;left:0;right:0;bottom:0;background:rgba(15,17,21,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);
-  display:flex;justify-content:center;gap:4px;padding:8px 8px calc(env(safe-area-inset-bottom) + 8px)}
-nav button{background:none;border:0;padding:8px 16px;border-radius:10px;color:var(--muted);position:relative}
-nav button.on{color:var(--text);background:var(--card2)}
-nav .badge{position:absolute;top:2px;right:4px;background:var(--accent);color:#111;border-radius:999px;font-size:10px;font-weight:700;padding:0 5px}
-.empty{text-align:center;color:var(--muted);padding:32px 12px}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 14px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
-.toast.show{opacity:1}
-.update{display:none;margin-bottom:10px}
-.update.show{display:block}
-ol{padding-left:20px}
+/* settings */
+.narrow{max-width:640px}
+ol{padding-left:20px;margin:0}
 ol li{margin-bottom:6px}
-code{background:var(--card2);padding:1px 5px;border-radius:6px;font-size:13px}
+code{font-family:var(--mono);font-size:12.5px;background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:4px}
+
+/* mobile nav, toast, update */
+.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(9,9,11,.9);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px 8px calc(env(safe-area-inset-bottom) + 8px);z-index:5}
+.bottom button{background:none;border:0;padding:8px 16px;border-radius:8px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.bottom button.on{color:var(--fg);background:var(--surface2)}
+.empty{text-align:center;color:var(--muted);padding:56px 16px;border:1px dashed var(--line2);border-radius:12px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--fg);color:#09090b;padding:9px 14px;border-radius:8px;font-size:14px;font-weight:500;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1}
+.update{display:none;margin-bottom:16px;border:1px solid var(--violet);background:color-mix(in srgb,var(--violet) 12%,var(--surface));border-radius:10px;padding:10px 14px;align-items:center;justify-content:space-between;gap:12px}
+.update.show{display:flex}
 </style>
 </head>
 <body>
-<main>
-  <div class="card update" id="update"><div class="row" style="justify-content:space-between"><span>Nouvelle version disponible</span><button class="btn primary" id="updateBtn">Mettre à jour</button></div></div>
-  <div class="top">
-    <h1>BA Radar</h1>
-    <button class="btn small" id="reload">Actualiser</button>
-  </div>
-  <div class="muted small" id="status">Chargement…</div>
-  <section id="view"></section>
-</main>
-<nav>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="logo"></span>BA Radar</div>
+    <nav>
+      <button data-tab="week" class="on">Semaine <span class="count" data-count="week"></span></button>
+      <button data-tab="accounts">Comptes <span class="count" data-count="accounts"></span></button>
+      <button data-tab="settings">Réglages</button>
+    </nav>
+    <div class="foot">
+      <span class="caps">Dernier scan</span>
+      <span id="status2">…</span>
+      <button class="btn" id="reload2">Actualiser</button>
+    </div>
+  </aside>
+  <main>
+    <div class="update" id="update"><span>Nouvelle version disponible</span><button class="btn primary" id="updateBtn">Mettre à jour</button></div>
+    <div class="pagehead">
+      <div>
+        <div class="brand-m"><span class="logo"></span><span class="caps">BA Radar</span></div>
+        <h1 id="title">Cette semaine</h1>
+        <div id="status">Chargement…</div>
+      </div>
+      <button class="btn" id="reload">Actualiser</button>
+    </div>
+    <section id="view"></section>
+  </main>
+</div>
+<nav class="bottom">
   <button data-tab="week" class="on">Semaine</button>
-  <button data-tab="accounts">Comptes</button>
+  <button data-tab="accounts">Comptes <span class="count" data-count="accounts"></span></button>
   <button data-tab="settings">Réglages</button>
 </nav>
 <div class="toast" id="toast"></div>
@@ -101,10 +199,11 @@ code{background:var(--card2);padding:1px 5px;border-radius:6px;font-size:13px}
 <script>
 // Bump together with version.json on every release, so installed copies
 // see "Mettre à jour".
-const APP_VERSION = '2026.10.11-4';
+const APP_VERSION = '2026.10.11-5';
 const REPO = 'alexadark/ba-radar-data';
 const API = `https://api.github.com/repos/${REPO}/contents/`;
 const CATS = { music: 'Musique', tech: 'Tech', business: 'Business', culture: 'Culture', food: 'Food', other: 'Autre' };
+const TITLES = { week: 'Cette semaine', accounts: 'Comptes', settings: 'Réglages' };
 const $ = id => document.getElementById(id);
 
 let tab = 'week';
@@ -116,6 +215,8 @@ function savePref(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } ca
 function token() { try { return localStorage.getItem('gh_token') || ''; } catch { return ''; } }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
+function catOf(x) { return CATS[x?.category] ? x.category : 'other'; }
+function setStatusText(t) { $('status').textContent = t; $('status2').textContent = t; }
 
 // ---------- GitHub storage ----------
 function b64decode(b64) {
@@ -154,8 +255,8 @@ async function updateFile(name, mutate, message) {
 }
 
 async function load() {
-  if (!token()) { $('status').textContent = 'Connecte ta clé GitHub dans Réglages.'; data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
-  $('status').textContent = 'Chargement…';
+  if (!token()) { setStatusText('Connecte ta clé GitHub dans Réglages.'); data = loadPref('cache', data); render(); if (!data.events) setTab('settings'); return; }
+  setStatusText('Chargement…');
   try {
     const [e, a, s, c] = await Promise.all(['events.json', 'accounts.json', 'state.json', 'config.json'].map(readFile));
     data = { events: e.json, accounts: a.json, state: s.json, config: c.json };
@@ -163,25 +264,33 @@ async function load() {
     setStatus();
   } catch (err) {
     data = loadPref('cache', data);
-    $('status').textContent = err.status === 401 || err.status === 404 ? 'Clé GitHub refusée. Vérifie-la dans Réglages.' : 'Hors ligne, dernières données affichées.';
+    setStatusText(err.status === 401 || err.status === 404 ? 'Clé GitHub refusée. Vérifie-la dans Réglages.' : 'Hors ligne, dernières données affichées.');
   }
   render();
 }
 function setStatus() {
   const g = data.events?.generated_at;
-  $('status').textContent = g ? `Dernier scan : ${new Date(g).toLocaleString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}` : 'Pas encore de scan.';
+  if (data.events?.last_error) { setStatusText(`Problème au dernier scan : ${data.events.last_error}`); return; }
+  setStatusText(g ? new Date(g).toLocaleString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) : 'Pas encore de scan.');
 }
 
 // ---------- views ----------
 function setTab(t) {
   tab = t;
-  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  $('title').textContent = TITLES[t];
   render();
+  window.scrollTo(0, 0);
+}
+function upcoming() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  return (data.events?.events || []).filter(e => e.start && new Date(e.start.slice(0, 10) + 'T23:59') >= today);
 }
 function render() {
   const pending = (data.accounts?.accounts || []).filter(a => a.status === 'suggested').length;
-  const accBtn = document.querySelector('nav [data-tab=accounts]');
-  accBtn.innerHTML = `Comptes${pending ? `<span class="badge">${pending}</span>` : ''}`;
+  const visible = upcoming().filter(e => evState(e.id) !== 'hidden').length;
+  document.querySelectorAll('[data-count=accounts]').forEach(el => { el.textContent = pending || ''; el.style.display = pending ? '' : 'none'; el.classList.toggle('hot', !!pending); });
+  document.querySelectorAll('[data-count=week]').forEach(el => { el.textContent = visible || ''; el.style.display = visible ? '' : 'none'; });
   ({ week: renderWeek, accounts: renderAccounts, settings: renderSettings })[tab]();
 }
 
@@ -190,21 +299,33 @@ function dayKey(ev) { return (ev.start || '').slice(0, 10); }
 
 function renderWeek() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
-  let evs = (data.events?.events || []).filter(e => e.start && new Date(e.start.slice(0, 10) + 'T23:59') >= today);
-  if (filters.cat !== 'all') evs = evs.filter(e => (e.category || 'other') === filters.cat);
+  const all = upcoming();
+  let evs = all;
+  if (filters.cat !== 'all') evs = evs.filter(e => catOf(e) === filters.cat);
   if (filters.near) evs = evs.filter(e => e.near);
   if (filters.mine) evs = evs.filter(e => ['going', 'maybe'].includes(evState(e.id)));
   const hiddenCount = evs.filter(e => evState(e.id) === 'hidden').length;
   if (!filters.showHidden) evs = evs.filter(e => evState(e.id) !== 'hidden');
   evs.sort((a, b) => a.start.localeCompare(b.start) || (b.score || 0) - (a.score || 0));
 
-  const chip = (key, val, label) => `<button class="chip ${filters[key] === val ? 'on' : ''}" data-f="${key}" data-v="${val}">${label}</button>`;
-  const toggle = (key, label) => `<button class="chip ${filters[key] ? 'on' : ''}" data-t="${key}">${label}</button>`;
-  let html = `<div class="chips" style="margin-top:14px">${chip('cat', 'all', 'Tout')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip('cat', k, v)).join('')}</div>
-    <div class="chips">${toggle('near', data.config?.home ? `Près de ${esc(data.config.home)}` : 'Près de chez moi')}${toggle('mine', 'Mes plans')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Masqués (${hiddenCount})`) : ''}</div>`;
+  const shown = all.filter(e => evState(e.id) !== 'hidden');
+  const nearLabel = data.config?.home ? `Près de ${esc(data.config.home)}` : 'Près de chez moi';
+  const stat = (label, n, cls) => `<div class="stat ${cls}"><span class="caps">${label}</span><div class="n">${n}</div></div>`;
+  let html = `<div class="stats">
+    ${stat('Événements', shown.length, 'g')}
+    ${stat('Top picks', shown.filter(e => (e.score || 0) >= 4).length, 'c-music')}
+    ${stat(nearLabel, shown.filter(e => e.near).length, 'c-near')}
+    ${stat('Mes plans', all.filter(e => ['going', 'maybe'].includes(evState(e.id))).length, 'c-mine')}
+  </div>`;
+
+  const chip = (val, label) => `<button class="chip c-${val === 'all' ? 'x' : val} ${filters.cat === val ? 'on' : ''}" data-f="cat" data-v="${val}">${val === 'all' ? '' : '<span class="dot"></span>'}${label}</button>`;
+  const toggle = (key, label, cls) => `<button class="chip ${cls} ${filters[key] ? 'on' : ''}" data-t="${key}"><span class="dot"></span>${label}</button>`;
+  html += `<div class="filters">${chip('all', 'Tout')}${Object.entries(CATS).filter(([k]) => k !== 'other').map(([k, v]) => chip(k, v)).join('')}
+    <span class="sep"></span>${toggle('near', nearLabel, 'c-near')}${toggle('mine', 'Mes plans', 'c-mine')}${hiddenCount || filters.showHidden ? toggle('showHidden', `Masqués (${hiddenCount})`, 'c-other') : ''}</div>`;
 
   if (!data.events) html += `<div class="empty">Aucune donnée pour l'instant.</div>`;
-  else if (!evs.length) html += `<div class="empty">Rien qui corresponde cette semaine.</div>`;
+  else if (!data.events.generated_at) html += `<div class="empty">Pas encore de scan. Lance-le depuis l'app Claude : Scheduled › BA Radar › Run now.</div>`;
+  else if (!evs.length) html += `<div class="empty">Rien qui corresponde à ces filtres.</div>`;
 
   const byDay = {};
   evs.forEach(e => (byDay[dayKey(e)] ||= []).push(e));
@@ -212,8 +333,8 @@ function renderWeek() {
     const date = new Date(d + 'T00:00');
     const diff = Math.round((date - today) / 864e5);
     const rel = diff === 0 ? "aujourd'hui" : diff === 1 ? 'demain' : '';
-    html += `<div class="day"><h2>${date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}<span>${rel}</span></h2>`;
-    html += list.map(evCard).join('') + `</div>`;
+    html += `<div class="day"><div class="dayhead"><h2>${date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</h2>${rel ? `<span class="rel">${rel}</span>` : ''}<span class="caps">${list.length}</span></div>
+      <div class="grid">${list.map(evCard).join('')}</div></div>`;
   }
   $('view').innerHTML = html;
 
@@ -224,21 +345,23 @@ function renderWeek() {
 function evCard(e) {
   const st = evState(e.id);
   const time = e.start.length > 10 ? e.start.slice(11, 16) : '';
-  const cat = CATS[e.category] ? e.category : 'other';
+  const cat = catOf(e);
   const score = Math.max(0, Math.min(5, e.score || 0));
-  const btn = (mark, label) => `<button class="btn small ${st === mark ? 'on' : ''}" data-id="${esc(e.id)}" data-mark="${mark}">${label}</button>`;
-  return `<div class="card ev ${st === 'hidden' ? 'hidden-ev' : st}">
-    <div class="head"><div class="time">${time || '·'}</div>
-      <div><div class="title">${esc(e.title)}</div>
-      <div class="where">${esc([e.venue, e.barrio].filter(Boolean).join(' · '))}${e.near ? ' <span class="near">● près</span>' : ''}</div></div></div>
-    ${e.summary ? `<div class="sum">${esc(e.summary)}</div>` : ''}
-    ${e.why ? `<div class="why">${esc(e.why)}</div>` : ''}
-    <div class="meta"><span class="tag t-${cat}">${CATS[cat]}</span><span class="dots" title="Intérêt">${'●'.repeat(score)}<span class="muted">${'●'.repeat(5 - score)}</span></span>
-      ${e.price ? `<span class="muted">${esc(e.price)}</span>` : ''}
-      ${e.post_url ? `<a href="${esc(e.post_url)}" target="_blank" rel="noopener">@${esc(e.account || 'post')}</a>` : ''}
-      ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Billets</a>` : ''}</div>
-    <div class="actions">${btn('going', "J'y vais")}${btn('maybe', 'Peut-être')}${btn('hidden', 'Masquer')}</div>
-  </div>`;
+  const btn = (mark, label) => `<button class="${st === mark ? 'on' : ''}" data-id="${esc(e.id)}" data-mark="${mark}">${label}</button>`;
+  return `<article class="ev c-${cat} ${st === 'hidden' ? 'hidden-ev' : st}">
+    <div class="top"><span class="time">${time || '—'}</span><span class="tag">${CATS[cat]}</span>${score >= 5 ? '<span class="top-pick">TOP</span>' : ''}
+      <span class="score" title="Intérêt ${score}/5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= score ? 'on' : ''}"></i>`).join('')}</span></div>
+    <h3>${esc(e.title)}</h3>
+    <div class="where">${esc([e.venue, e.barrio].filter(Boolean).join(' · '))}${e.near ? ' · <span class="near">près</span>' : ''}</div>
+    ${e.summary ? `<p class="sum">${esc(e.summary)}</p>` : ''}
+    ${e.why ? `<p class="why">${esc(e.why)}</p>` : ''}
+    <div class="foot">
+      ${e.price ? `<span class="mono muted">${esc(e.price)}</span>` : ''}
+      ${e.post_url ? `<a href="${esc(e.post_url)}" target="_blank" rel="noopener">@${esc(e.account || 'post')} ↗</a>` : ''}
+      ${e.ticket_url ? `<a href="${esc(e.ticket_url)}" target="_blank" rel="noopener">Billets ↗</a>` : ''}
+      <span class="acts">${btn('going', "J'y vais")}${btn('maybe', 'Peut-être')}${btn('hidden', 'Masquer')}</span>
+    </div>
+  </article>`;
 }
 async function markEvent(id, mark) {
   const next = evState(id) === mark ? '' : mark;
@@ -254,21 +377,23 @@ function renderAccounts() {
   const accs = data.accounts?.accounts || [];
   const by = s => accs.filter(a => a.status === s);
   const sugg = by('suggested'), following = [...by('approved'), ...by('following')], ignored = by('ignored');
-  let html = `<h2>Suggestions (${sugg.length})</h2>`;
-  html += sugg.length ? sugg.map(a => `<div class="card acc">
-      <div><span class="h"><a href="https://www.instagram.com/${esc(a.handle)}/" target="_blank" rel="noopener">@${esc(a.handle)}</a></span>
-      <span class="muted small"> ${esc(a.name || '')}</span><br><span class="tag t-${CATS[a.category] ? a.category : 'other'}">${CATS[a.category] || 'Autre'}</span>
-      <span class="muted small">${esc(a.barrio || '')}</span></div>
-      <div class="actions"><button class="btn primary" data-acc="${esc(a.handle)}" data-s="approved">Suivre</button><button class="btn" data-acc="${esc(a.handle)}" data-s="ignored">Ignorer</button></div>
-      ${a.why ? `<div class="why">${esc(a.why)}</div>` : ''}</div>`).join('')
-    : `<div class="card muted small">Pas de suggestion en attente. Le scan en propose de nouvelles chaque semaine.</div>`;
+  const igLink = a => `<a href="https://www.instagram.com/${esc(a.handle)}/" target="_blank" rel="noopener">@${esc(a.handle)}</a>`;
 
-  html += `<h2>Ajouter un compte</h2><div class="card"><div class="row" style="flex-wrap:nowrap"><input type="text" id="newHandle" placeholder="@compte ou lien Instagram" autocapitalize="off" autocorrect="off"><button class="btn primary" id="addBtn">Ajouter</button></div></div>`;
+  let html = `<div class="section"><span class="caps">Suggestions · ${sugg.length}</span>`;
+  html += sugg.length ? `<div class="grid">${sugg.map(a => `<div class="acc c-${catOf(a)}">
+      <div class="row"><span class="h">${igLink(a)}</span><span class="tag">${CATS[catOf(a)]}</span></div>
+      <div class="small muted">${esc([a.name, a.barrio].filter(Boolean).join(' · '))}</div>
+      ${a.why ? `<div class="small">${esc(a.why)}</div>` : ''}
+      <div class="acts"><button class="btn primary" data-acc="${esc(a.handle)}" data-s="approved">Suivre</button><button class="btn" data-acc="${esc(a.handle)}" data-s="ignored">Ignorer</button></div></div>`).join('')}</div>`
+    : `<div class="panel small muted">Pas de suggestion en attente. Le scan en propose de nouvelles chaque semaine.</div>`;
+  html += `</div>`;
 
-  html += `<h2>Suivis (${following.length})</h2><div class="card list">${following.length ? following.map(a => `<div class="item"><span><a href="https://www.instagram.com/${esc(a.handle)}/" target="_blank" rel="noopener">@${esc(a.handle)}</a>${a.status === 'approved' ? '<span class="pill">au prochain scan</span>' : ''}<br><span class="muted small">${esc(a.name || '')}</span></span><button class="btn small" data-acc="${esc(a.handle)}" data-s="ignored">Retirer</button></div>`).join('') : '<span class="muted small">Aucun compte suivi.</span>'}</div>`;
+  html += `<div class="section narrow"><span class="caps">Ajouter un compte</span><div class="panel"><div class="row"><input type="text" id="newHandle" placeholder="@compte ou lien Instagram" autocapitalize="off" autocorrect="off"><button class="btn primary" id="addBtn">Ajouter</button></div></div></div>`;
 
-  if (ignored.length) html += `<h2>Ignorés (${ignored.length})</h2><div class="card list">${ignored.map(a => `<div class="item"><span>@${esc(a.handle)}</span><button class="btn small" data-acc="${esc(a.handle)}" data-s="suggested">Restaurer</button></div>`).join('')}</div>`;
-  html += `<p class="muted small">« Retirer » arrête le scan de ce compte ; l'abonnement Instagram reste en place.</p>`;
+  html += `<div class="section"><span class="caps">Suivis · ${following.length}</span><div class="panel"><div class="list">${following.length ? following.map(a => `<div class="item c-${catOf(a)}"><span><span class="d"></span>${igLink(a)}${a.status === 'approved' ? '<span class="pill">en attente</span>' : ''}</span><button data-acc="${esc(a.handle)}" data-s="ignored">Retirer</button></div>`).join('') : '<span class="muted small">Aucun compte suivi.</span>'}</div></div>
+    <p class="small muted">« En attente » : le scan lit déjà ce compte et s'y abonne au fil des semaines, 10 par passage. « Retirer » arrête le scan ; l'abonnement Instagram reste en place.</p></div>`;
+
+  if (ignored.length) html += `<div class="section"><span class="caps">Ignorés · ${ignored.length}</span><div class="panel"><div class="list">${ignored.map(a => `<div class="item c-${catOf(a)}"><span><span class="d"></span>@${esc(a.handle)}</span><button data-acc="${esc(a.handle)}" data-s="suggested">Restaurer</button></div>`).join('')}</div></div></div>`;
   $('view').innerHTML = html;
 
   $('view').querySelectorAll('[data-acc]').forEach(b => b.onclick = () => setAccount(b.dataset.acc, b.dataset.s));
@@ -285,7 +410,7 @@ async function setAccount(handle, status) {
   const now = new Date().toISOString();
   const apply = j => { const a = (j.accounts || []).find(x => x.handle === handle); if (a) { a.status = status; a.updated = now; } };
   apply(data.accounts); savePref('cache', data); render();
-  try { await updateFile('accounts.json', apply, `@${handle}: ${status}`); toast(status === 'approved' ? 'Suivi au prochain scan' : 'Enregistré'); }
+  try { await updateFile('accounts.json', apply, `@${handle}: ${status}`); toast(status === 'approved' ? 'Ajouté au scan' : 'Enregistré'); }
   catch { toast("Pas enregistré, vérifie ta connexion."); }
 }
 async function addAccount() {
@@ -305,23 +430,26 @@ async function addAccount() {
 
 function renderSettings() {
   const has = !!token();
-  $('view').innerHTML = `<h2>Clé GitHub</h2>
-    <div class="card">
+  $('view').innerHTML = `<div class="narrow">
+    <div class="section"><span class="caps">Clé GitHub</span>
+    <div class="panel">
       <p class="small" style="margin-top:0">${has ? 'Une clé est enregistrée sur cet appareil.' : "L'appli lit tes données dans le repo privé <code>" + REPO + "</code>. Il lui faut une clé, une fois par appareil."}</p>
-      <div class="row" style="flex-wrap:nowrap"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Enregistrer</button></div>
-      ${has ? '<p class="small row"><button class="btn small" id="qrBtn">Transférer vers le téléphone</button><button class="btn small" id="clearTok">Oublier la clé</button></p><div id="qr" style="display:none"></div>' : ''}
-    </div>
-    <h2>Créer la clé</h2>
-    <div class="card small"><ol>
-      <li>Ouvre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com › New fine-grained token</a>.</li>
+      <div class="row"><input type="password" id="tok" placeholder="github_pat_…" autocomplete="off"><button class="btn primary" id="saveTok">Enregistrer</button></div>
+      ${has ? '<div class="row" style="margin-top:12px"><button class="btn grad" id="qrBtn">Transférer vers le téléphone</button><button class="btn" id="clearTok">Oublier la clé</button></div><div id="qr" style="display:none"></div>' : ''}
+    </div></div>
+    <div class="section"><span class="caps">Créer la clé</span>
+    <div class="panel small"><ol>
+      <li>Ouvre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--blue)">github.com › New fine-grained token</a>.</li>
       <li>Nom : <code>BA Radar</code>. Expiration : la plus longue proposée.</li>
       <li>Repository access : <b>Only select repositories</b> › <code>ba-radar-data</code>.</li>
       <li>Permissions › Repository › <b>Contents : Read and write</b>.</li>
       <li>Génère, copie, colle ici. La clé reste sur cet appareil seulement.</li>
-    </ol></div>
-    <h2>Installer</h2>
-    <div class="card small">Mac : dans Chrome, menu ⋮ › « Caster, enregistrer et partager » › « Installer la page en tant qu'appli », ou dans Safari, Fichier › « Ajouter au Dock ». iPhone : Safari › Partager › « Sur l'écran d'accueil ».</div>
-    <p class="muted small">Version ${APP_VERSION}</p>`;
+    </ol></div></div>
+    <div class="section"><span class="caps">Lancer un scan</span>
+    <div class="panel small">Dans l'app Claude sur le Mac : barre latérale › Scheduled › « BA Radar : scan Instagram hebdo » › Run now. Chrome doit être ouvert avec l'extension Claude connectée.</div></div>
+    <div class="section"><span class="caps">Installer</span>
+    <div class="panel small">Mac : dans Chrome, menu ⋮ › « Caster, enregistrer et partager » › « Installer la page en tant qu'appli », ou dans Safari, Fichier › « Ajouter au Dock ». iPhone : Safari › Partager › « Sur l'écran d'accueil ».</div></div>
+    <p class="caps">Version ${APP_VERSION}</p></div>`;
   $('saveTok').onclick = async () => {
     const v = $('tok').value.trim();
     if (!v) return;
@@ -343,15 +471,16 @@ async function showQr() {
   try {
     if (!window.qrcode) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js');
     const qr = qrcode(0, 'M'); qr.addData(token()); qr.make();
-    box.innerHTML = `<div style="background:#fff;padding:14px;border-radius:12px;width:fit-content;margin:6px auto">${qr.createSvgTag({ cellSize: 5, margin: 0 })}</div>
+    box.innerHTML = `<div style="background:#fff;padding:14px;border-radius:10px;width:fit-content;margin:14px auto 8px">${qr.createSvgTag({ cellSize: 5, margin: 0 })}</div>
       <p class="small muted">Sur le téléphone : vise ce code avec l'appareil photo, touche le texte qui apparaît et copie-le, puis colle-le dans Réglages de l'appli installée. Referme ensuite ce code.</p>`;
     box.style.display = 'block';
   } catch { toast('QR indisponible hors ligne'); }
 }
 
 // ---------- boot ----------
-document.querySelectorAll('nav button').forEach(b => b.onclick = () => setTab(b.dataset.tab));
+document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => setTab(b.dataset.tab));
 $('reload').onclick = load;
+$('reload2').onclick = load;
 document.addEventListener('visibilitychange', () => { if (!document.hidden) { load(); checkUpdate(); } });
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
